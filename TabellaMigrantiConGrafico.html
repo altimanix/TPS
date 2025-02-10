@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Grafico e Tabella Sbarchi Migranti</h2>
+    <input type="file" id="fileInput" accept=".csv">
+    <canvas id="grafico" width="800" height="500"></canvas>
+    <h3>Tabella Dati</h3>
+    <table id="tabella">
+        <thead>
+            <tr>
+                <th>Anno</th>
+                <th>Sbarchi</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: lightgray;
+        }
+    </style>
+
+    <script>
+        let fileInput = document.getElementById("fileInput");
+        let canvas = document.getElementById("grafico");
+        let ctx = canvas.getContext("2d");
+        let tabellaBody = document.querySelector("#tabella tbody");
+
+        fileInput.addEventListener("change", function(event) {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    processaCSV(e.target.result);
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        function processaCSV(text) {
+            let righe = text.split("\n").map(function(riga) {
+                return riga.replace(/"/g, '').trim();
+            }).slice(1);
+            let anni = [];
+            let sbarchi = [];
+            tabellaBody.innerHTML = "";
+
+            for (let i = 0; i < righe.length; i++) {
+                let dati = righe[i].split(",");
+                if (dati.length === 2) {
+                    let anno = dati[0].trim();
+                    let numero = parseInt(dati[1].trim());
+                    if (!isNaN(numero)) {
+                        anni.push(anno);
+                        sbarchi.push(numero);
+                        aggiungiRigaTabella(anno, numero);
+                    }
+                }
+            }
+
+            if (anni.length > 0 && sbarchi.length > 0) {
+                disegnaGrafico(anni, sbarchi);
+            } else {
+                alert("Errore nel file CSV: dati non validi.");
+            }
+        }
+
+        function aggiungiRigaTabella(anno, sbarchi) {
+            let riga = document.createElement("tr");
+            let cellaAnno = document.createElement("td");
+            let cellaSbarchi = document.createElement("td");
+            cellaAnno.textContent = anno;
+            cellaSbarchi.textContent = sbarchi;
+            riga.appendChild(cellaAnno);
+            riga.appendChild(cellaSbarchi);
+            tabellaBody.appendChild(riga);
+        }
+
+        function disegnaGrafico(anni, sbarchi) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(50, 450);
+            ctx.lineTo(750, 450);
+            ctx.lineTo(750, 50);
+            ctx.stroke();
+
+            let maxSbarchi = Math.max.apply(null, sbarchi);
+
+            for (let i = 0; i < anni.length; i++) {
+                let x = 50 + (i * (700 / anni.length));
+                let y = 450 - (sbarchi[i] / maxSbarchi * 400);
+
+                ctx.beginPath();
+                ctx.arc(x, y, 4, 0, Math.PI * 2);
+                ctx.fillStyle = "red";
+                ctx.fill();
+
+                if (i > 0) {
+                    let prevX = 50 + ((i - 1) * (700 / anni.length));
+                    let prevY = 450 - (sbarchi[i - 1] / maxSbarchi * 400);
+                    ctx.beginPath();
+                    ctx.moveTo(prevX, prevY);
+                    ctx.lineTo(x, y);
+                    ctx.strokeStyle = "blue";
+                    ctx.stroke();
+                }
+                ctx.fillStyle = "black";
+                ctx.fillText(anni[i], x - 10, 470);
+            }
+        }
+    </script>
+</body>
+</html>
