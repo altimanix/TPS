@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <label for="fileInput">Seleziona il file tabella migranti :</label>
+    <input type="file" id="fileInput" accept:".csv" onchange="loadFile(event)">
+    <div id="tableContainer"></div>
+    
+    <script>
+        function loadFile(event) {
+            let fileInput = event.target.files[0];
+            let fileReader = new FileReader();            
+            fileReader.onload = function() {
+                let text = fileReader.result;
+                let table = document.createElement('table');
+                let rows = text.split('\n');
+                for (let i = 0; i < rows.length; i++) {
+                    let row = rows[i].split(',');
+                    let tr = document.createElement('tr');  
+                    for (let j = 0; j < row.length; j++) {
+                        let td = document.createElement('td');
+                        td.textContent = row[j];
+                        tr.appendChild(td);
+                    }
+                    table.appendChild(tr);
+                }
+                document.getElementById('tableContainer').innerHTML = '';
+                document.getElementById('tableContainer').appendChild(table);
+            };
+            fileReader.readAsText(fileInput);
+        }
+    </script>
+</body>
+</html>
+
+</html>
