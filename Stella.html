@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <canvas id="stella" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById('stella');
+        const ctx = canvas.getContext('2d');
+        ctx.beginPath();
+        ctx.moveTo(250, 150);
+        ctx.lineTo(287, 232);
+        ctx.lineTo(374, 232);
+        ctx.lineTo(304, 284);
+        ctx.lineTo(330, 366);
+        ctx.lineTo(250, 318);
+        ctx.lineTo(170, 366);
+        ctx.lineTo(196, 284);
+        ctx.lineTo(126, 232);
+        ctx.lineTo(213, 232);
+        ctx.closePath();
+        ctx.stroke();
+    </script>
+</body>
+</html>
