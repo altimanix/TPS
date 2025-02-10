@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Visualizzazione Dati</title>
+    <style>
+      table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      window.onload = function () {
+        let datiSalvati = localStorage.getItem("matriceDati");
+      let matriceDati = [];
+  if (datiSalvati) {
+    matriceDati = JSON.parse(datiSalvati);
+  }
+
+        let tbody = document.getElementById("Tabella").getElementsByTagName("tbody")[0];
+
+        for (let i = 0; i < matriceDati.length; i++) {
+          let riga = document.createElement("tr");
+          for (let j = 0; j < matriceDati[i].length; j++) {
+            let cella = document.createElement("td");
+            cella.textContent = matriceDati[i][j];
+            riga.appendChild(cella);
+          }
+          tbody.appendChild(riga);
+        }
+      }
+    </script>
+
+    <h3>Tabella Dati Salvati</h3>
+    <table id="Tabella">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Indirizzo</th>
+          <th>Città</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+
+
+  </body>
+  </html>
