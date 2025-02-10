@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <script>
+        function calcolaRadici() {
+            let a = parseFloat(document.getElementById("a").value);
+            let b = parseFloat(document.getElementById("b").value);
+            let c = parseFloat(document.getElementById("c").value);
+            let delta = b * b - 4 * a * c;
+            let output = "";
+            if (delta > 0) {
+                let x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                let x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                output = `
+                    <div>Il Delta è: ${delta}</div>
+                    <div>L'equazione ha due soluzioni reali distinte:</div>
+                    <div>x1 = ${x1}</div>
+                    <div>x2 = ${x2}</div>
+                `;
+            } else if (delta === 0) {
+                let x = -b / (2 * a);
+                output = `
+                    <div>Il Delta è: ${delta}</div>
+                    <div>L'equazione ha una soluzione reale doppia:</div>
+                    <div>x = ${x}</div>
+                `;
+            } else {
+                output = `
+                    <div>Il Delta è: ${delta}</div>
+                    <div>L'equazione non ha soluzioni reali.</div>
+                `;
+            }
+            document.getElementById("outputDiv").innerHTML = output;
+        }
+    </script>
+<body>
+    <h1>Calcolo delle Radici di un'Equazione di Secondo Grado</h1>
+
+    <form id="equationForm">
+        <label for="a">Coefficiente a:</label><br>
+        <input type="number" id="a" name="a" required><br><br>
+
+        <label for="b">Coefficiente b:</label><br>
+        <input type="number" id="b" name="b" required><br><br>
+
+        <label for="c">Coefficiente c:</label><br>
+        <input type="number" id="c" name="c" required><br><br>
+
+        <button type="button" onclick="calcolaRadici()">Calcola Radici</button>
+    </form>
+
+    <div class="output" id="outputDiv"></div>
+
+  
+</body>
+</html>
