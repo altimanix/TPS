@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html>
+<body>
+    <h1>Ordina i numeri</h1>
+    <label for="numeri">Inserisci i numeri separati da spazio:</label>
+    <input type="text" id="numeri"/>
+    <button onclick="ordinaV()">Ordina</button>
+    <h3>Numeri ordinati (crescente):</h3>
+    <div id="crescente"></div>
+    <h3>Numeri ordinati (decrescente):</h3>
+    <div id="decrescente"></div>
+    <script>
+function numeriV() {
+    let input = document.getElementById('numeri').value;
+    let numeri = input.split(' ');
+    let numeriConvertiti = [];
+    
+    for (let i = 0; i < numeri.length; i++) {
+        numeriConvertiti.push(Number(numeri[i]));
+    }
+    
+    return numeriConvertiti;
+}
+        
+        function ordinaV() {
+            let VCrescente = numeriV();
+            let VDecrescente = [...VCrescente];
+            for (let i = 0; i < VCrescente.length; i++) {
+                for (let j = i + 1; j < VCrescente.length; j++) {
+                    if (VCrescente[i] > VCrescente[j]) {
+                        let t = VCrescente[i];
+                        VCrescente[i] = VCrescente[j];
+                        VCrescente[j] = t;
+                    }
+                }
+            }
+            for (let i = 0; i < VDecrescente.length; i++) {
+                for (let j = i + 1; j < VDecrescente.length; j++) {
+                    if (VDecrescente[i] < VDecrescente[j]) {
+                        let t = VDecrescente[i];
+                        VDecrescente[i] = VDecrescente[j];
+                        VDecrescente[j] = t;
+                    }
+                }
+            }
+            document.getElementById('crescente').innerHTML = '';
+            for (let i = 0; i < VCrescente.length; i++) {
+                let numero = document.createTextNode(VCrescente[i] + ' ');
+                document.getElementById('crescente').appendChild(numero);
+            }
+            document.getElementById('decrescente').innerHTML = '';
+            for (let i = 0; i < VDecrescente.length; i++) {
+                let numero = document.createTextNode(VDecrescente[i] + ' ');
+                document.getElementById('decrescente').appendChild(numero);
+            }
+        }
+    </script>
+</body>
+</html>
