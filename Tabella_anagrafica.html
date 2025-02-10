@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inserimento Dati con Matrice</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+ <script>
+  
+    let matriceDati = [];
+    function aggiungiDati();
+      let nome = document.getElementById("nome").value;
+      let cognome = document.getElementById("cognome").value;
+      let indirizzo = document.getElementById("indirizzo").value;
+      let citta = document.getElementById("citta").value;
+      matriceDati.push([nome, cognome, indirizzo, citta]);
+      document.getElementById("dati").reset();
+      aggiornaTabella();
+    }
+
+    function aggiornaTabella() {
+      
+      let tbody = document.getElementById("Tabella").getElementsByTagName("tbody")[0];
+      tbody.innerHTML = "";
+      for (let i = 0; i < matriceDati.length; i++) {
+        let riga = document.createElement("tr");
+        for (let j = 0; j < matriceDati[i].length; j++) {
+          let cella = document.createElement("td");
+          cella.textContent = matriceDati[i][j];
+          riga.appendChild(cella);
+        }
+        tbody.appendChild(riga);
+      }
+    }
+</script>
+
+
+
+  <h2>Inserisci i  dati</h2>
+
+  <form id="dati">
+    Nome: <input type="text" id="nome" required><br><br>
+    Cognome: <input type="text" id="cognome" required><br><br>
+    Indirizzo: <input type="text" id="indirizzo" required><br><br>
+    Città: <input type="text" id="citta" required><br><br>
+    <button type="button" onclick="aggiungiDati()">Inserisci dati in tabella</button>
+  </form>
+
+  <h3>Tabella Dati Inseriti</h3>
+  <table id="Tabella">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Indirizzo</th>
+        <th>Città</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+
+   
+</body>
+</html>
