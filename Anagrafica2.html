@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anagrafica2</title>
+    <style>
+        .griglia {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-width: 400px;
+        }
+        .cella {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dati Utente</h2>
+    <div class="griglia" id="grigliaUtente"></div>
+
+    <script>
+        window.onload = function() {
+            let datiUtente = JSON.parse(localStorage.getItem('datiUtente'));
+
+            if (datiUtente) {
+                let griglia = document.getElementById('grigliaUtente');
+
+                for (let chiave in datiUtente) {
+                    let etichetta = document.createElement('div');
+                    etichetta.className = 'cella';
+                    etichetta.textContent = chiave.charAt(0).toUpperCase() + chiave.slice(1);
+                    
+                    let valore = document.createElement('div');
+                    valore.className = 'cella';
+                    valore.textContent = datiUtente[chiave];
+
+                    griglia.appendChild(etichetta);
+                    griglia.appendChild(valore);
+                }
+            } else {
+                document.body.innerHTML += "<p>Nessun dato trovato.</p>";
+            }
+        };
+    </script>
+</body>
+</html>
