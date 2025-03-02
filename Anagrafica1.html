@@ -1,40 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Anagrafica1</title>
-    <style>
-    body {
-        background-color: lightblue; 
-    }
-</style>
-</head>
-<body>
-    <h2>Inserisci i tuoi dati</h2>
-    <form id="moduloUtente">
-        <label>Nome: <input type="text" id="nome" required></label><br>
-        <label>Cognome: <input type="text" id="cognome" required></label><br>
-        <label>Età: <input type="number" id="eta" required></label><br>
-        <label>Indirizzo: <input type="text" id="indirizzo" required></label><br>
-       <label>Sesso: <input type="text" id="sesso" required></label><br>
-        <label>CAP: <input type="number" id="cap" required></label><br>
-        <button type="button" onclick="salvaDati()">Salva e Visualizza</button>
-      </form>
-
-    <script>
-        function salvaDati() {
-            let datiUtente = {
-                nome: document.getElementById('nome').value,
-                cognome: document.getElementById('cognome').value,
-                eta: document.getElementById('eta').value,
-                indirizzo: document.getElementById('indirizzo').value,
-                sesso: document.getElementById('sesso').value,
-                cap: document.getElementById('cap').value
-            };
-
-            localStorage.setItem('datiUtente', JSON.stringify(datiUtente));
-            window.location.href = "Anagrafica2.html"; 
-    
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Anagrafica1</title>
+        <style>
+        body {
+            background-color: lightblue; 
         }
-    </script>
-</body>
-</html>
+    </style>
+    </head>
+    <body>
+        <h2>Inserisci i tuoi dati</h2>
+        <form id="moduloUtente">
+            <label>Nome: <input type="text" id="nome" required></label><br>
+            <label>Cognome: <input type="text" id="cognome" required></label><br>
+            <label>Età: <input type="number" id="eta" required></label><br>
+            <label>Indirizzo: <input type="text" id="indirizzo" required></label><br>
+           <label>Sesso: <input type="text" id="sesso" required></label><br>
+            <label>CAP: <input type="number" id="cap" required></label><br>
+            <button type="button" onclick="salvaDati()">Salva e Visualizza</button>
+          </form>
+    
+        <script>
+            function salvaDati() {
+                let datiUtente = {
+                    nome: document.getElementById('nome').value,
+                    cognome: document.getElementById('cognome').value,
+                    eta: document.getElementById('eta').value,
+                    indirizzo: document.getElementById('indirizzo').value,
+                    sesso: document.getElementById('sesso').value,
+                    cap: document.getElementById('cap').value
+                };
+    
+                localStorage.setItem('datiUtente', JSON.stringify(datiUtente));
+                window.location.href = "Anagrafica2.html"; 
+        
+            }
+        </script>
+    </body>
+    </html>
