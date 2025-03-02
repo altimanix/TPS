@@ -14,8 +14,7 @@
         <label>CAP: <input type="number" id="cap" required></label><br>
          </form>
         <button type="button" onclick="salvaDati()">Salva e Visualizza</button>
-     <button onclick="vaiallatabella()">Vai alla tabella</button>
-   
+     
 
     <script>
         function salvaDati() {
@@ -30,11 +29,7 @@
 
             localStorage.setItem('datiUtente', JSON.stringify(datiUtente));
             window.location.href = "Anagrafica2.html"; 
-            function vaiallatabella() {
-            window.location.href = "Anagrafica2.html";
-                
-            };
-
+    
         }
     </script>
 </body>
