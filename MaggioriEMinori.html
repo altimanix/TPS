@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Conta maggiori e minori</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            font-size: 30px;
+        }
+        h2 {
+            font-size: 24px;
+        }
+        label, input, button {
+            display: block;
+            margin-top: 10px;
+        }
+        input {
+            width: 300px;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .success {
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .danger {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Conta maggiori e minori</h1>
+<h2>Istruzioni:</h2>
+<ol>
+    <li>Inserisci un valore per decidere quanti numeri confrontare</li>
+    <li>Inserisci un valore di soglia</li>
+    <li>Premi il bottone "Vai"</li>
+    <li>Inserisci i valori nella prompt</li>
+</ol>
+
+<div>
+    <label for="numValori">Quanti valori vuoi inserire</label>
+    <input type="number" id="numValori" min="1">
+
+    <label for="soglia">Valore soglia</label>
+    <input type="number" id="soglia">
+
+    <button class="success" onclick="vai()">Vai</button>
+    <button class="danger" onclick="cancella()">Cancella</button>
+</div>
+
+<div id="risultato" class="output"></div>
+
+<script>
+function vai() {
+    const numValori = +document.getElementById('numValori').value;
+    const soglia = +document.getElementById('soglia').value;
+
+    if (isNaN(numValori) || isNaN(soglia) || numValori <= 0) {
+        alert("Inserisci valori validi!");
+        return;
+    }
+
+    let maggiori = 0;
+    let minori = 0;
+
+    for (let i = 0; i < numValori; i++) {
+        const valore = +prompt(`Inserisci il valore ${i + 1}:`);
+       
+        if (isNaN(valore)) {
+            alert("Valore non valido!");
+            i--;
+        } else {
+            if (valore > soglia) {
+                maggiori++;
+            } else {
+                minori++;
+            }
+        }
+    }
+
+    document.getElementById('risultato').innerHTML = `Valori maggiori: ${maggiori} <br> Valori minori: ${minori}`;
+}
+
+function cancella() {
+    document.getElementById('numValori').value = '';
+    document.getElementById('soglia').value = '';
+    document.getElementById('risultato').innerHTML = '';
+}
+</script>
+
+</body>
+</html>
