@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple - E-commerce Altimani</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .header {
+      background-color: #90ee90;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .subheader {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .phones-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 30px;
+    }
+
+    .phone {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .phone img {
+      width: 80px;
+      height: auto;
+    }
+
+    .phone div {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        font-size: 20px;
+      }
+      .subheader {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    Apple
+    <div class="subheader" id="nomeUtente"></div>
+  </div>
+
+  <div class="phones-container" id="phonesContainer">
+    <!-- I telefoni saranno aggiunti dinamicamente qui -->
+  </div>
+
+  <script>
+    let userData = JSON.parse(localStorage.getItem('datiUtente'));
+    let telefoni = JSON.parse(localStorage.getItem('telefoni'));
+
+    if (userData && userData.nome) {
+      document.getElementById('nomeUtente').innerText = userData.nome;
+    }
+
+    let applePhones = telefoni.filter(function(t) {
+      return t.marca === 'Apple';
+    });
+
+    let phonesContainer = document.getElementById('phonesContainer');
+
+    applePhones.forEach(function(phone) {
+      let phoneElement = document.createElement('div');
+      phoneElement.classList.add('phone');
+      phoneElement.innerHTML = `
+        <img src="${phone.imgUrl}" alt="${phone.nome}">
+        <div>${phone.nome}</div>
+      `;
+      phonesContainer.appendChild(phoneElement);
+    });
+  </script>
+</body>
+</html>
