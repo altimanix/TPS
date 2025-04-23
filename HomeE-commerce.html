@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
- <style>
+  <title>Home - E-commerce Altimani</title>
+  <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -92,12 +92,8 @@
     }
 
     function vaiAllaMarca(marca) {
-      let telefoniMarca = telefoni.filter(function(t) {
-        return t.marca === marca;
-      });
       localStorage.setItem('marca', marca);
-      localStorage.setItem('telefoniMarca', JSON.stringify(telefoniMarca));
-      window.location.href = 'marca.html';
+      window.location.href = `${marca.toLowerCase()}.html`;
     }
   </script>
 </body>
