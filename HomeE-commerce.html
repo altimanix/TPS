@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <style>
+ <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -84,15 +84,17 @@
   </div>
 
   <script>
-    const userData = JSON.parse(localStorage.getItem('datiUtente'));
-    const telefoni = JSON.parse(localStorage.getItem('telefoni'));
+    let userData = JSON.parse(localStorage.getItem('datiUtente'));
+    let telefoni = JSON.parse(localStorage.getItem('telefoni'));
 
     if (userData && userData.nome) {
       document.getElementById('nomeUtente').innerText = userData.nome;
     }
 
     function vaiAllaMarca(marca) {
-      const telefoniMarca = telefoni.filter(t => t.marca === marca);
+      let telefoniMarca = telefoni.filter(function(t) {
+        return t.marca === marca;
+      });
       localStorage.setItem('marca', marca);
       localStorage.setItem('telefoniMarca', JSON.stringify(telefoniMarca));
       window.location.href = 'marca.html';
