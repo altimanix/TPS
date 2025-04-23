@@ -51,6 +51,7 @@
   </div>
 
   <div class="phones-container" id="phonesContainer">
+    <!-- I telefoni Apple saranno aggiunti dinamicamente qui -->
   </div>
 
   <script>
@@ -61,12 +62,27 @@
     applePhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
-      phoneElement.innerHTML = `
-        <img src="${phone.imgUrl}" alt="${phone.nome}">
-        <div>${phone.nome}</div>
-      `;
+      phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
+
+      let phoneImg = document.createElement('img');
+      phoneImg.src = phone.imgUrl;
+      phoneImg.alt = phone.nome;
+
+      let phoneNome = document.createElement('div');
+      phoneNome.innerText = phone.nome;
+
+      phoneElement.appendChild(phoneImg);
+      phoneElement.appendChild(phoneNome);
       phonesContainer.appendChild(phoneElement);
     });
+
+    function vaiAllaPaginaTelefono(nomeTelefono) {
+      let telefono = telefoni.find(function(t) { return t.nome === nomeTelefono; });
+      if (telefono) {
+        localStorage.setItem('telefono', JSON.stringify(telefono));
+        window.location.href = 'telefono.html';  // Reindirizza alla pagina dei dettagli del telefono
+      }
+    }
   </script>
 </body>
 </html>
