@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HomeE-commerce</title>
+  <title>Home - E-commerce Altimani</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,9 +20,9 @@
       font-weight: bold;
     }
 
-    .subheader {
+    .header span {
+      font-weight: normal;
       font-size: 20px;
-      margin-top: 10px;
     }
 
     .marche-container {
@@ -39,8 +39,9 @@
     }
 
     .marca img {
-      width: 80px;
-      height: auto;
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
     }
 
     .marca div {
@@ -52,34 +53,15 @@
       .header {
         font-size: 20px;
       }
-      .subheader {
-        font-size: 16px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="header">
-    Benvenuto nella home <div class="subheader" id="nomeUtente"></div>
+    Benvenuto <span id="nomeUtente"></span>
   </div>
 
-  <div class="marche-container">
-    <div class="marca" onclick="vaiAllaMarca('Apple')">
-      <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" alt="Apple">
-      <div>IPhone</div>
-    </div>
-    <div class="marca" onclick="vaiAllaMarca('Samsung')">
-      <img src="https://cdn-icons-png.flaticon.com/512/882/882706.png" alt="Samsung">
-      <div>Samsung</div>
-    </div>
-    <div class="marca" onclick="vaiAllaMarca('Xiaomi')">
-      <img src="https://cdn-icons-png.flaticon.com/512/882/882715.png" alt="Xiaomi">
-      <div>Xiaomi</div>
-    </div>
-    <div class="marca" onclick="vaiAllaMarca('Huawei')">
-      <img src="https://cdn-icons-png.flaticon.com/512/882/882710.png" alt="Huawei">
-      <div>Huawei</div>
-    </div>
+  <div class="marche-container" id="marcheContainer">
   </div>
 
   <script>
@@ -90,10 +72,45 @@
       document.getElementById('nomeUtente').innerText = userData.nome;
     }
 
+    let marche = [];
+    for (let i = 0; i < telefoni.length; i++) {
+      if (marche.indexOf(telefoni[i].marca) === -1) {
+        marche.push(telefoni[i].marca);
+      }
+    }
+
+    let marcheContainer = document.getElementById('marcheContainer');
+    let marcheImages = {
+      "Apple": "https://cdn-icons-png.flaticon.com/512/179/179309.png",
+      "Samsung": "https://cdn-icons-png.flaticon.com/512/882/882706.png",
+      "Xiaomi": "https://cdn-icons-png.flaticon.com/512/882/882715.png",
+      "Huawei": "https://cdn-icons-png.flaticon.com/512/882/882710.png"
+    };
+
+    for (let j = 0; j < marche.length; j++) {
+      let marca = marche[j];
+
+      let marcaElement = document.createElement('div');
+      marcaElement.classList.add('marca');
+      marcaElement.setAttribute('onclick', 'vaiAllaMarca("' + marca + '")');
+
+      let marcaImg = document.createElement('img');
+      marcaImg.src = marcheImages[marca];
+      marcaImg.alt = marca;
+
+      let marcaNome = document.createElement('div');
+      marcaNome.innerText = marca;
+
+      marcaElement.appendChild(marcaImg);
+      marcaElement.appendChild(marcaNome);
+      marcheContainer.appendChild(marcaElement);
+    }
+
     function vaiAllaMarca(marca) {
       localStorage.setItem('marca', marca);
-      window.location.href = `${marca.toLowerCase()}.html`;
+      window.location.href = marca.toLowerCase() + '.html';
     }
   </script>
 </body>
 </html>
+
