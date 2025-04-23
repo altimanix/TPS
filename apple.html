@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>apple</title>
+  <title>Apple - E-commerce Altimani</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -36,10 +36,11 @@
     .phone {
       text-align: center;
       cursor: pointer;
+      width: 200px;
     }
 
     .phone img {
-      width: 80px;
+      width: 150px;
       height: auto;
     }
 
@@ -61,14 +62,14 @@
 <body>
   <div class="header">
     Apple
-  
+    <div class="subheader" id="nomeUtente"></div>
   </div>
 
   <div class="phones-container" id="phonesContainer">
-   
   </div>
 
   <script>
+    let userData = JSON.parse(localStorage.getItem('datiUtente'));
     let telefoni = JSON.parse(localStorage.getItem('telefoni'));
 
     if (userData && userData.nome) {
