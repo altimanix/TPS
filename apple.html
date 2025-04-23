@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>apple</title>
+  <title>Apple - E-commerce Altimani</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -18,11 +18,6 @@
       padding: 20px;
       font-size: 24px;
       font-weight: bold;
-    }
-
-    .subheader {
-      font-size: 20px;
-      margin-top: 10px;
     }
 
     .phones-container {
@@ -48,15 +43,6 @@
       margin-top: 10px;
       font-weight: bold;
     }
-
-    @media (max-width: 600px) {
-      .header {
-        font-size: 20px;
-      }
-      .subheader {
-        font-size: 16px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -69,16 +55,8 @@
 
   <script>
     let telefoni = JSON.parse(localStorage.getItem('telefoni'));
-
-    if (userData && userData.nome) {
-      document.getElementById('nomeUtente').innerText = userData.nome;
-    }
-
-    let applePhones = telefoni.filter(function(t) {
-      return t.marca === 'Apple';
-    });
-
     let phonesContainer = document.getElementById('phonesContainer');
+    let applePhones = telefoni.filter(function(t) { return t.marca === 'Apple'; });
 
     applePhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
