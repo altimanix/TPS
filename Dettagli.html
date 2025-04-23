@@ -37,8 +37,8 @@
     }
 
     .product-img img {
-      width: 100%;
-      height: auto;
+      width: 234px;
+      height: 234px;
       object-fit: cover;
     }
 
@@ -63,10 +63,19 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
+      margin-right: 10px;
     }
 
     button:hover {
       background-color: #218838;
+    }
+
+    .return-button {
+      background-color: #007bff;
+    }
+
+    .return-button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -83,6 +92,7 @@
       <p><strong>Dettagli:</strong> <span id="phoneDetails"></span></p>
       <div class="button-container">
         <button>Aggiungi al carrello</button>
+        <button class="return-button" onclick="window.location.href='home.html'">Ritorna alla Home</button>
       </div>
     </div>
 
