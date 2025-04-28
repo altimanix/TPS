@@ -58,7 +58,7 @@
     let phonesContainer = document.getElementById('phonesContainer');
     let huaweiPhones = telefoni.filter(function(t) { return t.marca === 'Huawei'; });
 
-    applePhones.forEach(function(phone) {
+    huaweiPhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
       phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
