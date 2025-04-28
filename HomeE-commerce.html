@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HomeE-commerce </title>
+  <title>HomeE-commerce</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -64,6 +64,7 @@
   <div class="marche-container" id="marcheContainer">
   </div>
 
+
   <script>
     let userData = JSON.parse(localStorage.getItem('datiUtente'));
     let telefoni = JSON.parse(localStorage.getItem('telefoni'));
@@ -81,10 +82,10 @@
 
     let marcheContainer = document.getElementById('marcheContainer');
     let marcheImages = {
-      "Apple": "https://www.google.com/imgres?q=logo%20apple&imgurl=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Ff%2Ffa%2FApple_logo_black.svg&imgrefurl=https%3A%2F%2Fit.m.wikipedia.org%2Fwiki%2FFile%3AApple_logo_black.svg&docid=RChVbLfnog8FrM&tbnid=KQ8ko3fqAJ172M&vet=12ahUKEwiB4LvVxfqMAxXFk_0HHVHQLbYQM3oECBwQAA..i&w=814&h=1000&hcb=2&ved=2ahUKEwiB4LvVxfqMAxXFk_0HHVHQLbYQM3oECBwQAA.png",
-      "Samsung": "https://www.google.com/imgres?q=logo%20samsung&imgurl=https%3A%2F%2Fimages.samsung.com%2Fis%2Fimage%2Fsamsung%2Fassets%2Fglobal%2Fabout-us%2Fbrand%2Flogo%2Fmo%2F256_144_2.png%3F%24512_N_PNG%24&imgrefurl=https%3A%2F%2Fwww.samsung.com%2Fit%2Fabout-us%2Fbrand-identity%2Flogo%2F&docid=BK7-QP_NzrDKkM&tbnid=OpuxqxELbF73ZM&vet=12ahUKEwjLpJ2HxfqMAxW5_7sIHb3cNNgQM3oECBoQAA..i&w=512&h=288&hcb=2&ved=2ahUKEwjLpJ2HxfqMAxW5_7sIHb3cNNgQM3oECBoQAA.png",
-      "Xiaomi": "https://www.google.com/imgres?q=logo%20xiaomi&imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F234%2F461%2Fpng-clipart-xiaomi-mi-1-graphics-logo-xiaomi-logo-text-trademark-thumbnail.png&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fit%2Fsearch%3Fq%3Dlogo%2Bxiaomi&docid=5hJ4hlCtkTBeCM&tbnid=KvLaGPVQbGVo3M&vet=12ahUKEwjAqK-4xfqMAxVd8LsIHbTfNtoQM3oECBcQAA..i&w=348&h=348&hcb=2&ved=2ahUKEwjAqK-4xfqMAxVd8LsIHbTfNtoQM3oECBcQAA.png",
-      "Huawei": "https://www.google.com/imgres?q=logo%20huawei&imgurl=https%3A%2F%2F1000logos.net%2Fwp-content%2Fuploads%2F2018%2F08%2FHuawei-Logo.png&imgrefurl=https%3A%2F%2F1000logos.net%2Fhuawei-logo%2F&docid=zv0K1w9UXfqXhM&tbnid=fiPfP35p2v0EiM&vet=12ahUKEwiP7cfHxfqMAxVQiP0HHcAuLoMQM3oECFYQAA..i&w=1920&h=1080&hcb=2&ved=2ahUKEwiP7cfHxfqMAxVQiP0HHcAuLoMQM3oECFYQAA.png"
+      "Apple":   "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      "Samsung": "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/256_144_2.png?$512_N_PNG$",
+      "Xiaomi":  "https://e7.pngegg.com/pngimages/234/461/png-clipart-xiaomi-mi-1-graphics-logo-xiaomi-logo-text-trademark-thumbnail.png",
+      "Huawei":  "https://1000logos.net/wp-content/uploads/2018/08/Huawei-Logo.png"
     };
 
     for (let j = 0; j < marche.length; j++) {
