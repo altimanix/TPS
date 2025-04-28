@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>samsung</title>
+  <title>apple</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,11 +20,6 @@
       font-weight: bold;
     }
 
-    .subheader {
-      font-size: 20px;
-      margin-top: 10px;
-    }
-
     .phones-container {
       display: flex;
       justify-content: center;
@@ -36,10 +31,11 @@
     .phone {
       text-align: center;
       cursor: pointer;
+      width: 200px;
     }
 
     .phone img {
-      width: 80px;
+      width: 150px;
       height: auto;
     }
 
@@ -47,50 +43,46 @@
       margin-top: 10px;
       font-weight: bold;
     }
-
-    @media (max-width: 600px) {
-      .header {
-        font-size: 20px;
-      }
-      .subheader {
-        font-size: 16px;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="header">
-    Samsung
-    <div class="subheader" id="nomeUtente"></div>
+    Apple
   </div>
 
   <div class="phones-container" id="phonesContainer">
-    <!-- I telefoni saranno aggiunti dinamicamente qui -->
+   
   </div>
 
   <script>
-    let userData = JSON.parse(localStorage.getItem('datiUtente'));
     let telefoni = JSON.parse(localStorage.getItem('telefoni'));
-
-    if (userData && userData.nome) {
-      document.getElementById('nomeUtente').innerText = userData.nome;
-    }
-
-    let samsungPhones = telefoni.filter(function(t) {
-      return t.marca === 'Samsung';
-    });
-
     let phonesContainer = document.getElementById('phonesContainer');
+    let samsungPhones = telefoni.filter(function(t) { return t.marca === 'Samsung'; });
 
-    samsungPhones.forEach(function(phone) {
+    applePhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
-      phoneElement.innerHTML = `
-        <img src="${phone.imgUrl}" alt="${phone.nome}">
-        <div>${phone.nome}</div>
-      `;
+      phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
+
+      let phoneImg = document.createElement('img');
+      phoneImg.src = phone.imgUrl;
+      phoneImg.alt = phone.nome;
+
+      let phoneNome = document.createElement('div');
+      phoneNome.innerText = phone.nome;
+
+      phoneElement.appendChild(phoneImg);
+      phoneElement.appendChild(phoneNome);
       phonesContainer.appendChild(phoneElement);
     });
+
+    function vaiAllaPaginaTelefono(nomeTelefono) {
+      let telefono = telefoni.find(function(t) { return t.nome === nomeTelefono; });
+      if (telefono) {
+        localStorage.setItem('telefono', JSON.stringify(telefono));
+        window.location.href = 'Dettagli.html';  
+      }
+    }
   </script>
 </body>
 </html>
