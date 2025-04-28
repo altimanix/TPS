@@ -59,7 +59,7 @@
     let phonesContainer = document.getElementById('phonesContainer');
     let samsungPhones = telefoni.filter(function(t) { return t.marca === 'Samsung'; });
 
-    applePhones.forEach(function(phone) {
+   samsungPhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
       phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
