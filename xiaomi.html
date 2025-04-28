@@ -59,7 +59,7 @@
     let phonesContainer = document.getElementById('phonesContainer');
     let xiaomiPhones = telefoni.filter(function(t) { return t.marca === 'Xiaomi'; });
 
-    applePhones.forEach(function(phone) {
+    xiaomiPhones.forEach(function(phone) {
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
       phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
