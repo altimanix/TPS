@@ -51,7 +51,7 @@
   </div>
 
   <div class="phones-container" id="phonesContainer">
-    <!-- I telefoni Apple saranno aggiunti dinamicamente qui -->
+   
   </div>
 
   <script>
@@ -80,7 +80,7 @@
       let telefono = telefoni.find(function(t) { return t.nome === nomeTelefono; });
       if (telefono) {
         localStorage.setItem('telefono', JSON.stringify(telefono));
-        window.location.href = 'Dettagli.html';  // Reindirizza alla pagina dei dettagli del telefono
+        window.location.href = 'Dettagli.html';  
       }
     }
   </script>
