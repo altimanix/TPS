@@ -107,22 +107,23 @@
     let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
     const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
 
-    function renderCart() {
-      cartContainer.innerHTML = '';
-      let totalCarrello = 0;
-      carrello.forEach(function(item, index) {
-        const prezzo = parseFloat(item.prezzo);
-        if (!isNaN(prezzo)) {
-          totalCarrello += prezzo;
-        }
-
-        let div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML =
-          '<div class="item-info"><h3>' + item.nome + '</h3><p>Prezzo: ' + item.prezzo + ' €</p></div>' +
-          '<div class="item-actions"><button onclick="removeItem(' + index + ')">Rimuovi</button></div>';
-        cartContainer.appendChild(div);
-      });
+      function renderCart() {
+        cartContainer.innerHTML = '';
+        let totalCarrello = 0;
+        carrello.forEach(function(item, index) {
+          const prezzo = parseFloat(item.prezzo.replace(',', '.').replace(/[^\d.]/g, ''));
+          if (!isNaN(prezzo)) {
+            totalCarrello += prezzo;
+          }
+      
+          let div = document.createElement('div');
+          div.className = 'cart-item';
+          div.innerHTML =
+            '<div class="item-info"><h3>' + item.nome + '</h3><p>Prezzo: ' + item.prezzo + ' €</p></div>' +
+            '<div class="item-actions"><button onclick="removeItem(' + index + ')">Rimuovi</button></div>';
+          cartContainer.appendChild(div);
+        });
+      
       document.getElementById('totalPrice').innerText = 'Totale: ' + totalCarrello.toFixed(2) + ' €';
     }
 
