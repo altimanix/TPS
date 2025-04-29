@@ -5,22 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrello</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background-color: #f0f0f0; }
-    .header { background-color: #90ee90; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
-    .cart-container { max-width: 800px; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ddd; }
-    .cart-item:last-child { border-bottom: none; }
-    .item-info { flex: 1; }
-    .item-info h3 { margin: 0 0 5px; font-size: 18px; }
-    .item-info p { margin: 0; }
-    .item-actions { display: flex; align-items: center; }
-    .item-actions button { background-color: #dc3545; margin-left: 10px; }
-    .total { text-align: right; font-size: 20px; margin-top: 15px; }
-    .actions { text-align: center; margin: 20px 0; }
-    .actions button { margin: 0 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .header {
+      background-color: #90ee90;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .cart-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-info h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+    }
+    .item-info p {
+      margin: 0;
+    }
+    .item-actions {
+      display: flex;
+      align-items: center;
+    }
+    .item-actions button {
+      background-color: #dc3545;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .item-actions button:hover {
+      background-color: #c82333;
+    }
+    .total {
+      text-align: right;
+      font-size: 20px;
+      margin-top: 15px;
+    }
+    .actions {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .actions button {
+      background-color: #28a745;
+      color: white;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .actions button:hover {
+      background-color: #218838;
+    }
     @media (max-width: 600px) {
-      .cart-item { flex-direction: column; align-items: flex-start; }
-      .item-actions { margin-top: 10px; }
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .item-actions {
+        margin-top: 10px;
+      }
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
@@ -42,7 +111,11 @@
       cartContainer.innerHTML = '';
       let totalCarrello = 0;
       carrello.forEach(function(item, index) {
-        totalCarrello += parseFloat(item.prezzo);
+        const prezzo = parseFloat(item.prezzo);
+        if (!isNaN(prezzo)) {
+          totalCarrello += prezzo;
+        }
+
         let div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML =
@@ -54,31 +127,53 @@
     }
 
     function removeItem(i) {
-      carrello.splice(i,1);
+      carrello.splice(i, 1);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       renderCart();
     }
 
     document.getElementById('purchaseBtn').onclick = function() {
+      if (carrello.length === 0) {
+        alert("Il carrello è già vuoto.");
+        return;
+      }
       document.getElementById('totalPrice').innerText = 'Acquisto avvenuto';
+      localStorage.removeItem('carrello');
+      carrello = [];
+      renderCart();
     };
 
     document.getElementById('receiptBtn').onclick = function() {
+      if (carrello.length === 0) {
+        alert("Il carrello è vuoto. Nessuno scontrino disponibile.");
+        return;
+      }
       let doc = new jsPDF();
       doc.setFontSize(16);
       doc.text('Scontrino Acquisto', 10, 10);
       let y = 20;
       let totalCarrello = 0;
       carrello.forEach(function(item) {
-        doc.setFontSize(12);
-        doc.text(item.nome + ' - ' + item.prezzo + ' €', 10, y);
-        y += 10;
-        totalCarrello += parseFloat(item.prezzo);
+        const prezzo = parseFloat(item.prezzo);
+        if (!isNaN(prezzo)) {
+          doc.setFontSize(12);
+          doc.text(item.nome + ' - ' + prezzo.toFixed(2) + ' €', 10, y);
+          y += 10;
+          totalCarrello += prezzo;
+        }
       });
       doc.text('Totale: ' + totalCarrello.toFixed(2) + ' €', 10, y + 5);
       doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, y + 15);
       doc.save('scontrino.pdf');
     };
+
+    
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'carrello') {
+        carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+        renderCart();
+      }
+    });
 
     renderCart();
   </script>
