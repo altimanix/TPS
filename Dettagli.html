@@ -83,7 +83,7 @@
 <body>
   <a href="Carrello.html" class="cart-link">Carrello</a>
   <div class="header">Dettagli Telefono</div>
-  <div class="product-container">
+  <div class="product-container">  
     <div class="product-info">
       <h2 id="phoneName"></h2>
       <p><strong>Marca:</strong> <span id="phoneBrand"></span></p>
@@ -99,20 +99,20 @@
     </div>
   </div>
   <script>
-    let telefoni = JSON.parse(localStorage.getItem('telefoni'));
+    let telefono = JSON.parse(localStorage.getItem('telefono')); 
     if (telefoni) {
-      document.getElementById('phoneName').innerText = telefoni.nome;
-      document.getElementById('phoneBrand').innerText = telefoni.marca;
-      document.getElementById('phonePrice').innerText = telefoni.prezzo;
-      document.getElementById('phoneDetails').innerText = 'RAM: ' + telefoni.ram + ', Memoria: ' + telefoni.memoria + ', Fotocamera: ' + telefoni.fotocamera + ', Frequenza: ' + telefoni.frequenza;
-      document.getElementById('phoneImage').src = telefoni.imgUrl;
+    document.getElementById('phoneName').innerText = telefono.nome; 
+document.getElementById('phoneBrand').innerText = telefono.marca; 
+document.getElementById('phonePrice').innerText = telefono.prezzo;
+ document.getElementById('phoneDetails').innerText = RAM: ${telefono.ram}, Memoria: ${telefono.memoria}, Fotocamera: ${telefono.fotocamera}, Frequenza: ${telefono.frequenza};  
+document.getElementById('phoneImage').src = telefono.imgUrl; 
     }
     document.getElementById('addToCartBtn').onclick = function() {
       let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
-      carrello.push(telefoni);
+      carrello.push(telefono);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       let total = parseFloat(localStorage.getItem('totalCarrello')) || 0;
-      total += parseFloat(telefoni.prezzo);
+      total += parseFloat(telefono.prezzo);
       localStorage.setItem('totalCarrello', total);
       alert('Prodotto aggiunto al carrello!');
     };
@@ -120,3 +120,5 @@
   </script>
 </body>
 </html>
+
+
