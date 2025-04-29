@@ -18,17 +18,17 @@
       font-size: 24px;
       font-weight: bold;
     }
-    .home-link {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      font-size: 16px;
-      color: white;
-      background-color: #333;
-      padding: 5px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+.home-link {      
+      position: absolute;   
+      top: 10px;   
+      left: 10px;      
+      color: white;     
+      font-size: 16px;      
+      text-decoration: none;    
+      background-color: rgba(0,0,0,0.3);       
+      padding: 5px 10px;       
+      border-radius: 4px;    
+    }  
     .home-link:hover {
       background-color: #555;
     }
@@ -108,7 +108,7 @@
   </style>
 </head>
 <body>
-  <div class="home-link" onclick="window.location.href='HomeE-commerce.html'">Home</div>
+  <a class="home-link" onclick="window.location.href='HomeE-commerce.html'">Home</a>
   <div class="header">Benvenuto nel tuo carrello</div>
   <div class="cart-container" id="cartContainer"></div>
   <div class="total" id="totalPrice"></div>
