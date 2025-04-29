@@ -109,10 +109,10 @@
     }
     document.getElementById('addToCartBtn').onclick = function() {
       let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
-      carrello.push(telefono);
+      carrello.push(telefoni);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       let total = parseFloat(localStorage.getItem('totalCarrello')) || 0;
-      total += parseFloat(telefono.prezzo);
+      total += parseFloat(telefoni.prezzo);
       localStorage.setItem('totalCarrello', total);
       alert('Prodotto aggiunto al carrello!');
     };
