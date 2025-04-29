@@ -176,9 +176,11 @@ document.getElementById('confirmBtn').onclick = function () {
   doc.setLineWidth(0.5);
   doc.line(10, y, 200, y);
   y += 8;
+
   doc.setFontSize(13);
   doc.text('Totale:', 10, y);
   doc.text(totalCarrello.toFixed(2) + ' €', 180, y, { align: 'right' });
+
   doc.save('scontrino.pdf');
 };
 
