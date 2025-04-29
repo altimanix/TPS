@@ -65,11 +65,17 @@
       let phoneElement = document.createElement('div');
       phoneElement.classList.add('phone');
       phoneElement.setAttribute('onclick', 'vaiAllaPaginaTelefono("' + phone.nome + '")');
+      let phoneImages = {
+      "iPhone 15 Pro Max":   "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      "iPhone 15 Pro": "https://images.samsung.com/is/image/samsung/assets/global/about-us/brand/logo/mo/256_144_2.png?$512_N_PNG$",
+      "iPhone 15 Plus":  "https://e7.pngegg.com/pngimages/234/461/png-clipart-xiaomi-mi-1-graphics-logo-xiaomi-logo-text-trademark-thumbnail.png",
+      "iPhone 15":  "https://1000logos.net/wp-content/uploads/2018/08/Huawei-Logo.png"
+    };
 
-      let phoneImg = document.createElement('img');
-      phoneImg.src = phone.imgUrl;
-      phoneImg.alt = phone.nome;
-
+     let phoneImg = document.createElement('img');
+     phoneImg.src =phoneImages[phone];
+      phoneImg.alt = phone;
+      
       let phoneNome = document.createElement('div');
       phoneNome.innerText = phone.nome;
 
@@ -88,3 +94,10 @@
   </script>
 </body>
 </html>
+
+
+
+
+    
+   
+
