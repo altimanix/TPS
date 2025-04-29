@@ -37,12 +37,12 @@
     const cartContainer = document.getElementById('cartContainer');
     let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
     const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
-    // Inizializza totalCarrello da localStorage
-    let totalCarrello = parseFloat(localStorage.getItem('totalCarrello')) || 0;
 
     function renderCart() {
       cartContainer.innerHTML = '';
+      let totalCarrello = 0;
       carrello.forEach(function(item, index) {
+        totalCarrello += parseFloat(item.prezzo);
         let div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML =
@@ -50,14 +50,10 @@
           '<div class="item-actions"><button onclick="removeItem(' + index + ')">Rimuovi</button></div>';
         cartContainer.appendChild(div);
       });
-      // Mostra totalCarrello aggiornato
       document.getElementById('totalPrice').innerText = 'Totale: ' + totalCarrello.toFixed(2) + ' €';
     }
 
     function removeItem(i) {
-      // Sottrae prezzo dall totale e aggiorna localStorage
-      totalCarrello -= parseFloat(carrello[i].prezzo);
-      localStorage.setItem('totalCarrello', totalCarrello);
       carrello.splice(i,1);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       renderCart();
@@ -72,10 +68,12 @@
       doc.setFontSize(16);
       doc.text('Scontrino Acquisto', 10, 10);
       let y = 20;
+      let totalCarrello = 0;
       carrello.forEach(function(item) {
         doc.setFontSize(12);
         doc.text(item.nome + ' - ' + item.prezzo + ' €', 10, y);
         y += 10;
+        totalCarrello += parseFloat(item.prezzo);
       });
       doc.text('Totale: ' + totalCarrello.toFixed(2) + ' €', 10, y + 5);
       doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, y + 15);
