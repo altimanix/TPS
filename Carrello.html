@@ -160,15 +160,20 @@ document.getElementById('confirmBtn').onclick = function () {
   y += 8;
 
   let totalCarrello = 0;
+  const carrello = JSON.parse(localStorage.getItem('carrello')) || [];
 
   carrello.forEach(function (item, index) {
-    const prezzo = parseFloat(item.prezzo.replace(/\./g, '').replace(',', '.'));
-    if (!isNaN(prezzo)) {
-      totalCarrello += prezzo;
-      doc.setFontSize(12);
-      doc.text(`- ${item.nome}`, 10, y);
-      doc.text(`${prezzo.toFixed(2)} €`, 180, y, { align: 'right' });
-      y += 8;
+    if (item.prezzo) {
+      let prezzo = item.prezzo.replace(/\./g, '').replace(',', '.');
+      prezzo = parseFloat(prezzo);
+      
+      if (!isNaN(prezzo)) {
+        totalCarrello += prezzo;
+        doc.setFontSize(12);
+        doc.text(`- ${item.nome}`, 10, y);
+        doc.text(`${prezzo.toFixed(2)} €`, 180, y, { align: 'right' });
+        y += 8;
+      }
     }
   });
 
