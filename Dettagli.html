@@ -106,11 +106,14 @@
         document.getElementById('phoneDetails').innerText = 'RAM: ' + telefono.ram + ', Memoria: ' + telefono.memoria + ', Fotocamera: ' + telefono.fotocamera + ', Frequenza: ' + telefono.frequenza; 
         document.getElementById('phoneImage').src = telefono.imgUrl;  
       }  
-      document.getElementById('addToCartBtn').onclick = function() {      
-        let carrello = JSON.parse(localStorage.getItem('carrello')) || []; 
-        carrello.push(telefono);    
-        localStorage.setItem('carrello', JSON.stringify(carrello));    
-        alert('Prodotto aggiunto al carrello!');   
+          document.getElementById('addToCartBtn').onclick = function() {
+       let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+       carrello.push(telefono);
+       localStorage.setItem('carrello', JSON.stringify(carrello));
+       let total = parseFloat(localStorage.getItem('totalCarrello')) || 0;
+       total += parseFloat(telefono.prezzo);
+       localStorage.setItem('totalCarrello', total);
+       alert('Prodotto aggiunto al carrello!');
       };  
     </script> 
   </body> 
