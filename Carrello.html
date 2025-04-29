@@ -28,7 +28,7 @@
 <body>
   <div class="header">Benvenuto nel tuo carrello</div>
   <div class="cart-container" id="cartContainer"></div>
-  <div class="total" id="totalPrice">Totale: 0 €</div>
+  <div class="total" id="totalPrice"></div>
   <div class="actions">
     <button id="purchaseBtn">Procedi all'acquisto</button>
     <button id="receiptBtn">Visualizza lo scontrino</button>
@@ -37,13 +37,12 @@
     const cartContainer = document.getElementById('cartContainer');
     let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
     const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
-    let totalCarrello = 0;
+    // Inizializza totalCarrello da localStorage
+    let totalCarrello = parseFloat(localStorage.getItem('totalCarrello')) || 0;
 
     function renderCart() {
       cartContainer.innerHTML = '';
-      totalCarrello = 0;
       carrello.forEach(function(item, index) {
-        totalCarrello += parseFloat(item.prezzo);
         let div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML =
@@ -51,10 +50,14 @@
           '<div class="item-actions"><button onclick="removeItem(' + index + ')">Rimuovi</button></div>';
         cartContainer.appendChild(div);
       });
+      // Mostra totalCarrello aggiornato
       document.getElementById('totalPrice').innerText = 'Totale: ' + totalCarrello.toFixed(2) + ' €';
     }
 
     function removeItem(i) {
+      // Sottrae prezzo dall totale e aggiorna localStorage
+      totalCarrello -= parseFloat(carrello[i].prezzo);
+      localStorage.setItem('totalCarrello', totalCarrello);
       carrello.splice(i,1);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       renderCart();
