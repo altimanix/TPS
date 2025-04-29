@@ -111,6 +111,7 @@
       let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
       carrello.push(telefono);
       localStorage.setItem('carrello', JSON.stringify(carrello));
+      // Aggiorna totalCarrello in localStorage
       let total = parseFloat(localStorage.getItem('totalCarrello')) || 0;
       total += parseFloat(telefono.prezzo);
       localStorage.setItem('totalCarrello', total);
