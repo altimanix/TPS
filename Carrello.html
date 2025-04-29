@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrello</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background-color: #f0f0f0; }
+    .header { background-color: #90ee90; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
+    .cart-container { max-width: 800px; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ddd; }
+    .cart-item:last-child { border-bottom: none; }
+    .item-info { flex: 1; }
+    .item-info h3 { margin: 0 0 5px; font-size: 18px; }
+    .item-info p { margin: 0; }
+    .item-actions { display: flex; align-items: center; }
+    .item-actions button { background-color: #dc3545; margin-left: 10px; }
+    .total { text-align: right; font-size: 20px; margin-top: 15px; }
+    .actions { text-align: center; margin: 20px 0; }
+    .actions button { margin: 0 10px; }
+    @media (max-width: 600px) {
+      .cart-item { flex-direction: column; align-items: flex-start; }
+      .item-actions { margin-top: 10px; }
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="header">Benvenuto nel tuo carrello</div>
+  <div class="cart-container" id="cartContainer"></div>
+  <div class="total" id="totalPrice">Totale: 0 €</div>
+  <div class="actions">
+    <button id="purchaseBtn">Procedi all'acquisto</button>
+    <button id="receiptBtn">Visualizza lo scontrino</button>
+  </div>
+  <script>
+    const cartContainer = document.getElementById('cartContainer');
+    let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+    const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
+
+    function renderCart() {
+      cartContainer.innerHTML = '';
+      let total = 0;
+      carrello.forEach(function(item, index) {
+        total += parseFloat(item.prezzo);
+        let div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML =
+          '<div class="item-info"><h3>' + item.nome + '</h3><p>Prezzo: ' + item.prezzo + ' €</p></div>' +
+          '<div class="item-actions"><button onclick="removeItem(' + index + ')">Rimuovi</button></div>';
+        cartContainer.appendChild(div);
+      });
+      document.getElementById('totalPrice').innerText = 'Totale: ' + total.toFixed(2) + ' €';
+    }
+
+    function removeItem(i) {
+      carrello.splice(i,1);
+      localStorage.setItem('carrello', JSON.stringify(carrello));
+      renderCart();
+    }
+
+    document.getElementById('purchaseBtn').onclick = function() {
+      document.getElementById('totalPrice').innerText = 'Acquisto avvenuto';
+    };
+
+    document.getElementById('receiptBtn').onclick = function() {
+      let doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text('Scontrino Acquisto', 10, 10);
+      let y = 20;
+      carrello.forEach(function(item) {
+        doc.setFontSize(12);
+        doc.text(item.nome + ' - ' + item.prezzo + ' €', 10, y);
+        y += 10;
+      });
+      let total = carrello.reduce(function(sum,i) { return sum + parseFloat(i.prezzo); }, 0).toFixed(2);
+      doc.text('Totale: ' + total + ' €', 10, y + 5);
+      doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, y + 15);
+      doc.save('scontrino.pdf');
+    };
+
+    renderCart();
+  </script>
+</body>
+</html>
