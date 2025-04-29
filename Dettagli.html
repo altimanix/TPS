@@ -99,19 +99,18 @@
     </div>
   </div>
   <script>
-    let telefono = JSON.parse(localStorage.getItem('telefono'));
-    if (telefono) {
-      document.getElementById('phoneName').innerText = telefono.nome;
-      document.getElementById('phoneBrand').innerText = telefono.marca;
-      document.getElementById('phonePrice').innerText = telefono.prezzo;
-      document.getElementById('phoneDetails').innerText = 'RAM: ' + telefono.ram + ', Memoria: ' + telefono.memoria + ', Fotocamera: ' + telefono.fotocamera + ', Frequenza: ' + telefono.frequenza;
-      document.getElementById('phoneImage').src = telefono.imgUrl;
+    let telefoni = JSON.parse(localStorage.getItem('telefoni'));
+    if (telefoni) {
+      document.getElementById('phoneName').innerText = telefoni.nome;
+      document.getElementById('phoneBrand').innerText = telefoni.marca;
+      document.getElementById('phonePrice').innerText = telefoni.prezzo;
+      document.getElementById('phoneDetails').innerText = 'RAM: ' + telefoni.ram + ', Memoria: ' + telefoni.memoria + ', Fotocamera: ' + telefoni.fotocamera + ', Frequenza: ' + telefoni.frequenza;
+      document.getElementById('phoneImage').src = telefoni.imgUrl;
     }
     document.getElementById('addToCartBtn').onclick = function() {
       let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
       carrello.push(telefono);
       localStorage.setItem('carrello', JSON.stringify(carrello));
-      // Aggiorna totalCarrello in localStorage
       let total = parseFloat(localStorage.getItem('totalCarrello')) || 0;
       total += parseFloat(telefono.prezzo);
       localStorage.setItem('totalCarrello', total);
