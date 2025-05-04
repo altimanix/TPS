@@ -43,13 +43,21 @@
     const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
     const cartContainer = document.getElementById('cartContainer');
 
+    function parsePrezzo(val) {
+      // Rimuove tutto tranne cifre, punto e virgola
+      let cleaned = String(val).replace(/[^0-9,\.]/g, '');
+      // Sostituisce virgola con punto
+      cleaned = cleaned.replace(/,/g, '.');
+      const num = parseFloat(cleaned);
+      return isNaN(num) ? 0 : num;
+    }
+
     function renderCart() {
       cartContainer.innerHTML = '';
       let total = 0;
       for (let i = 0; i < carrello.length; i++) {
         const item = carrello[i];
-        // parsing comma as decimal separator
-        const prezzoNum = parseFloat(item.prezzo.replace(',', '.')) || 0;
+        const prezzoNum = parsePrezzo(item.prezzo);
         total += prezzoNum;
         const div = document.createElement('div');
         div.className = 'cart-item';
@@ -90,13 +98,13 @@
       doc.text('Articoli acquistati:', 10, y); y += 8;
       for (let j = 0; j < carrello.length; j++) {
         const it = carrello[j];
-        const prezzo = parseFloat(it.prezzo.replace(',', '.')) || 0;
+        const prezzo = parsePrezzo(it.prezzo);
         totalPDF += prezzo;
-        doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, y);
+        doc.text('- ' + it.nome + ': ' + it.prezzo + 10, y);
         y += 6;
         if (y > 280) { doc.addPage(); y = 20; }
       }
-      y += 6; if (y>280) { doc.addPage(); y=20; }
+      y += 6; if (y > 280) { doc.addPage(); y = 20; }
       doc.line(10, y, 200, y); y += 8;
       doc.text('Totale: ' + totalPDF.toFixed(2).replace('.', ',') + ' €', 10, y);
       doc.save('scontrino.pdf');
@@ -116,5 +124,3 @@
   </script>
 </body>
 </html>
-
-
