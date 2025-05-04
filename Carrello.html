@@ -5,105 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrello</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background-color: #f0f0f0;
-    }
-    .header {
-      background-color: #90ee90;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .home-link {      
-      position: absolute;   
-      top: 10px;   
-      left: 10px;      
-      color: white;     
-      font-size: 16px;      
-      text-decoration: none;    
-      background-color: rgba(0,0,0,0.3);       
-      padding: 5px 10px;       
-      border-radius: 4px;    
-    }  
-    .home-link:hover {
-      background-color: #555;
-    }
-    .cart-container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 10px;
-      background: white;
-      border-radius: 5px;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid #ddd;
-    }
-    .cart-item:last-child {
-      border-bottom: none;
-    }
-    .item-info {
-      flex: 1;
-    }
-    .item-info h3 {
-      margin: 0 0 5px;
-      font-size: 18px;
-    }
-    .item-info p {
-      margin: 0;
-    }
-    .item-actions {
-      display: flex;
-      align-items: center;
-    }
-    .item-actions button {
-      background-color: #dc3545;
-      color: white;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-    .item-actions button:hover {
-      background-color: #c82333;
-    }
-    .total {
-      text-align: right;
-      font-size: 20px;
-      margin-top: 15px;
-    }
-    .actions {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .actions button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 20px;
-      margin: 0 10px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .actions button:hover {
-      background-color: #218838;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; background-color: #f0f0f0; }
+    .header { background-color: #90ee90; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
+    .home-link { position: absolute; top: 10px; left: 10px; color: white; font-size: 16px; text-decoration: none; background-color: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 4px; }
+    .home-link:hover { background-color: #555; }
+    .cart-container { max-width: 800px; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ddd; }
+    .cart-item:last-child { border-bottom: none; }
+    .item-info { flex: 1; }
+    .item-info h3 { margin: 0 0 5px; font-size: 18px; }
+    .item-info p { margin: 0; }
+    .item-actions { display: flex; align-items: center; }
+    .item-actions button { background-color: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+    .item-actions button:hover { background-color: #c82333; }
+    .total { text-align: right; font-size: 20px; margin-top: 15px; }
+    .actions { text-align: center; margin: 20px 0; }
+    .actions button { background-color: #28a745; color: white; padding: 10px 20px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; }
+    .actions button:hover { background-color: #218838; }
     @media (max-width: 600px) {
-      .cart-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .item-actions {
-        margin-top: 10px;
-      }
+      .cart-item { flex-direction: column; align-items: flex-start; }
+      .item-actions { margin-top: 10px; }
     }
   </style>
 </head>
@@ -116,7 +37,7 @@
     <button id="confirmBtn">Conferma l'acquisto</button>
   </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     let jsPDF = window.jspdf.jsPDF;
     let cartContainer = document.getElementById('cartContainer');
@@ -138,7 +59,7 @@
         div.className = 'cart-item';
         div.innerHTML = '<div class="item-info">' +
                         '<h3>' + item.nome + '</h3>' +
-                        '<p>Prezzo: ' + prezzoNum.toFixed(2) + ' €</p>' +
+                        '<p>Prezzo: ' + item.prezzo + ' €</p>' +
                         '</div>' +
                         '<div class="item-actions">' +
                         '<button onclick="removeItem(' + i + ')">Rimuovi</button>' +
@@ -185,7 +106,7 @@
         } else {
           p = 0;
         }
-        doc.text('- ' + it.nome + ': ' + p.toFixed(2) + ' €', 10, startY);
+        doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, startY);
         startY += 6;
         if (startY > 280) {
           doc.addPage();
@@ -209,13 +130,19 @@
       renderCart();
       document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
     };
-    
+
     window.addEventListener('storage', function(e) {
       if (e.key === 'carrello') {
         carrello = JSON.parse(localStorage.getItem('carrello')) || [];
         renderCart();
       }
     });
+
+    renderCart();
+  </script>
+</body>
+</html>
+
 
     renderCart();
   </script>
