@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrello</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background-color: #f0f0f0; }
-    .header { background-color: #90ee90; color: white; text-align: center; padding: 20px; font-size: 24px; font-weight: bold; }
-    .home-link { position: absolute; top: 10px; left: 10px; color: white; font-size: 16px; text-decoration: none; background-color: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 4px; }
-    .home-link:hover { background-color: #555; }
-    .cart-container { max-width: 800px; margin: 20px auto; padding: 10px; background: white; border-radius: 5px; }
-    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ddd; }
-    .cart-item:last-child { border-bottom: none; }
-    .item-info { flex: 1; }
-    .item-info h3 { margin: 0 0 5px; font-size: 18px; }
-    .item-info p { margin: 0; }
-    .item-actions { display: flex; align-items: center; }
-    .item-actions button { background-color: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
-    .item-actions button:hover { background-color: #c82333; }
-    .total { text-align: right; font-size: 20px; margin-top: 15px; }
-    .actions { text-align: center; margin: 20px 0; }
-    .actions button { background-color: #28a745; color: white; padding: 10px 20px; margin: 0 10px; border: none; border-radius: 4px; cursor: pointer; }
-    .actions button:hover { background-color: #218838; }
-    @media (max-width: 600px) {
-      .cart-item { flex-direction: column; align-items: flex-start; }
-      .item-actions { margin-top: 10px; }
-    }
-  </style>
-</head>
-<body>
-  <a class="home-link" onclick="window.location.href='HomeE-commerce.html'">Home</a>
-  <div class="header">Benvenuto nel tuo carrello</div>
-  <div class="cart-container" id="cartContainer"></div>
-  <div class="total" id="totalPrice"></div>
-  <div class="actions">
-    <button id="confirmBtn">Conferma l'acquisto</button>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     let jsPDF = window.jspdf.jsPDF;
     let cartContainer = document.getElementById('cartContainer');
@@ -49,7 +10,10 @@
       let total = 0;
       for (let i = 0; i < carrello.length; i++) {
         let item = carrello[i];
-        let prezzoNum = Number(item.prezzo);
+        let prezzoNum = item.prezzo; // assume prezzo is numeric value
+        if (typeof prezzoNum === 'string') {
+          prezzoNum = parseFloat(prezzoNum);
+        }
         if (!isNaN(prezzoNum)) {
           total += prezzoNum;
         } else {
@@ -59,7 +23,7 @@
         div.className = 'cart-item';
         div.innerHTML = '<div class="item-info">' +
                         '<h3>' + item.nome + '</h3>' +
-                        '<p>Prezzo: ' + item.prezzo + ' €</p>' +
+                        '<p>Prezzo: ' + (prezzoNum.toFixed(2)) + ' €</p>' +
                         '</div>' +
                         '<div class="item-actions">' +
                         '<button onclick="removeItem(' + i + ')">Rimuovi</button>' +
@@ -73,6 +37,74 @@
       carrello.splice(index, 1);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       renderCart();
+    }
+
+    document.getElementById('confirmBtn').onclick = function () {
+      if (carrello.length === 0) {
+        alert("Il carrello è vuoto. Nessun acquisto da confermare.");
+        return;
+      }
+
+      let now = new Date();
+      let data = now.toLocaleDateString('it-IT');
+      let ora = now.toLocaleTimeString('it-IT');
+
+      let doc = new jsPDF();
+      let totalPDF = 0;
+      let startY = 20;
+      doc.setFontSize(12);
+      doc.text('Scontrino Fiscale', 105, startY, { align: 'center' });
+      startY += 10;
+      doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, startY);
+      startY += 6;
+      doc.text('Data: ' + data + '   Ora: ' + ora, 10, startY);
+      startY += 10;
+      doc.text('Articoli acquistati:', 10, startY);
+      startY += 8;
+
+      for (let j = 0; j < carrello.length; j++) {
+        let it = carrello[j];
+        let prezzo = it.prezzo;
+        if (typeof prezzo === 'string') {
+          prezzo = parseFloat(prezzo);
+        }
+        if (isNaN(prezzo)) {
+          prezzo = 0;
+        }
+        totalPDF += prezzo;
+        doc.text('- ' + it.nome + ': ' + prezzo.toFixed(2) + ' €', 10, startY);
+        startY += 6;
+        if (startY > 280) {
+          doc.addPage();
+          startY = 20;
+        }
+      }
+
+      startY += 6;
+      if (startY > 280) {
+        doc.addPage();
+        startY = 20;
+      }
+      doc.line(10, startY, 200, startY);
+      startY += 8;
+      doc.text('Totale: ' + totalPDF.toFixed(2) + ' €', 10, startY);
+
+      doc.save('scontrino.pdf');
+      alert("✅ Acquisto completato! Scontrino salvato come PDF.");
+      localStorage.removeItem('carrello');
+      carrello = [];
+      renderCart();
+      document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
+    };
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'carrello') {
+        carrello = JSON.parse(localStorage.getItem('carrello')) || [];
+        renderCart();
+      }
+    });
+
+    renderCart();
     }
 
     document.getElementById('confirmBtn').onclick = function () {
@@ -130,19 +162,6 @@
       renderCart();
       document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
     };
-
-    window.addEventListener('storage', function(e) {
-      if (e.key === 'carrello') {
-        carrello = JSON.parse(localStorage.getItem('carrello')) || [];
-        renderCart();
-      }
-    });
-
-    renderCart();
-  </script>
-</body>
-</html>
-
 
     renderCart();
   </script>
