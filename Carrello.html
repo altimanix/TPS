@@ -33,7 +33,7 @@
   <div class="cart-container" id="cartContainer"></div>
   <div class="total" id="totalPrice"></div>
   <div class="actions">
-    <button id="confirmBtn">Conferma l'acquisto</button>
+    <button id="confirmBtn" onclick="confirmPurchase()">Conferma l'acquisto</button>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -44,9 +44,7 @@
     const cartContainer = document.getElementById('cartContainer');
 
     function parsePrezzo(val) {
-      // Rimuove tutto tranne cifre, punto e virgola
       let cleaned = String(val).replace(/[^0-9,\.]/g, '');
-      // Sostituisce virgola con punto
       cleaned = cleaned.replace(/,/g, '.');
       const num = parseFloat(cleaned);
       return isNaN(num) ? 0 : num;
@@ -80,7 +78,7 @@
       renderCart();
     }
 
-    document.getElementById('confirmBtn').addEventListener('click', function() {
+    function confirmPurchase() {
       if (carrello.length === 0) {
         alert('Il carrello è vuoto. Nessun acquisto da confermare.');
         return;
@@ -92,26 +90,34 @@
       let totalPDF = 0;
       let y = 20;
       doc.setFontSize(12);
-      doc.text('Scontrino Fiscale', 105, y, { align: 'center' }); y += 10;
-      doc.text('Cliente: ' + (userData.nome||'') + ' ' + (userData.cognome||''), 10, y); y += 6;
-      doc.text('Data: ' + data + ' Ora: ' + ora, 10, y); y += 10;
-      doc.text('Articoli acquistati:', 10, y); y += 8;
+      doc.text('Scontrino Fiscale', 105, y, { align: 'center' });
+      y += 10;
+      doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, y);
+      y += 6;
+      doc.text('Data: ' + data + ' Ora: ' + ora, 10, y);
+      y += 10;
+      doc.text('Articoli acquistati:', 10, y);
+      y += 8;
       for (let j = 0; j < carrello.length; j++) {
         const it = carrello[j];
         const prezzo = parsePrezzo(it.prezzo);
         totalPDF += prezzo;
-        doc.text('- ' + it.nome + ': ' + it.prezzo + 10, y);
+        doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, y);
         y += 6;
         if (y > 280) { doc.addPage(); y = 20; }
       }
-      y += 6; if (y > 280) { doc.addPage(); y = 20; }
-      doc.line(10, y, 200, y); y += 8;
+      y += 6;
+      if (y > 280) { doc.addPage(); y = 20; }
+      doc.line(10, y, 200, y);
+      y += 8;
       doc.text('Totale: ' + totalPDF.toFixed(2).replace('.', ',') + ' €', 10, y);
       doc.save('scontrino.pdf');
       alert('✅ Acquisto completato!');
-      localStorage.removeItem('carrello'); carrello = []; renderCart();
+      localStorage.removeItem('carrello');
+      carrello = [];
+      renderCart();
       document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
-    });
+    }
 
     window.addEventListener('storage', function(e) {
       if (e.key === 'carrello') {
@@ -124,3 +130,4 @@
   </script>
 </body>
 </html>
+
