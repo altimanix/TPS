@@ -42,13 +42,14 @@
     let carrello = JSON.parse(localStorage.getItem('carrello')) || [];
     const userData = JSON.parse(localStorage.getItem('datiUtente')) || {};
     const cartContainer = document.getElementById('cartContainer');
-    
+
     function renderCart() {
       cartContainer.innerHTML = '';
       let total = 0;
       for (let i = 0; i < carrello.length; i++) {
         const item = carrello[i];
-        const prezzoNum = parseFloat(item.prezzo) || 0;
+        // parsing comma as decimal separator
+        const prezzoNum = parseFloat(item.prezzo.replace(',', '.')) || 0;
         total += prezzoNum;
         const div = document.createElement('div');
         div.className = 'cart-item';
@@ -62,15 +63,15 @@
           '</div>';
         cartContainer.appendChild(div);
       }
-      document.getElementById('totalPrice').innerText = 'Totale: ' + total.toFixed(2) + ' €';
+      document.getElementById('totalPrice').innerText = 'Totale: ' + total.toFixed(2).replace('.', ',') + ' €';
     }
-    
+
     function removeItem(index) {
       carrello.splice(index, 1);
       localStorage.setItem('carrello', JSON.stringify(carrello));
       renderCart();
     }
-    
+
     document.getElementById('confirmBtn').addEventListener('click', function() {
       if (carrello.length === 0) {
         alert('Il carrello è vuoto. Nessun acquisto da confermare.');
@@ -89,7 +90,7 @@
       doc.text('Articoli acquistati:', 10, y); y += 8;
       for (let j = 0; j < carrello.length; j++) {
         const it = carrello[j];
-        const prezzo = parseFloat(it.prezzo) || 0;
+        const prezzo = parseFloat(it.prezzo.replace(',', '.')) || 0;
         totalPDF += prezzo;
         doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, y);
         y += 6;
@@ -97,22 +98,23 @@
       }
       y += 6; if (y>280) { doc.addPage(); y=20; }
       doc.line(10, y, 200, y); y += 8;
-      doc.text('Totale: ' + totalPDF.toFixed(2) + ' €', 10, y);
+      doc.text('Totale: ' + totalPDF.toFixed(2).replace('.', ',') + ' €', 10, y);
       doc.save('scontrino.pdf');
       alert('✅ Acquisto completato!');
       localStorage.removeItem('carrello'); carrello = []; renderCart();
       document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
     });
-    
+
     window.addEventListener('storage', function(e) {
       if (e.key === 'carrello') {
         carrello = JSON.parse(localStorage.getItem('carrello')) || [];
         renderCart();
       }
     });
-    
+
     renderCart();
   </script>
 </body>
 </html>
+
 
