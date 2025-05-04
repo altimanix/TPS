@@ -178,15 +178,12 @@
  
        carrello.forEach(function (item, index) {
          let prezzo = item.prezzo.replace(/\./g, '').replace(',', '.');
-         prezzo = parseFloat(prezzo);
- 
-         if (!isNaN(prezzo)) {
            totalCarrello += prezzo;
            doc.setFontSize(12);
            doc.text(`- ${item.nome}`, 10, y);
            doc.text(`${prezzo.toFixed(2)} €`, 180, y, { align: 'right' });
            y += 8;
-         }
+         
        });
  
        y += 5;
@@ -196,7 +193,7 @@
  
        doc.setFontSize(13);
        doc.text('Totale:', 10, y);
-       doc.text(totalCarrello.toFixed(2) + ' €', 180, y, { align: 'right' });
+       doc.text(totalCarrello+ ' €', 180, y, { align: 'right' });
  
        doc.save('scontrino.pdf');
      };
