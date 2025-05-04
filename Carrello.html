@@ -116,7 +116,7 @@
     <button id="confirmBtn">Conferma l'acquisto</button>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     let jsPDF = window.jspdf.jsPDF;
     let cartContainer = document.getElementById('cartContainer');
@@ -128,15 +128,17 @@
       let total = 0;
       for (let i = 0; i < carrello.length; i++) {
         let item = carrello[i];
-        let prezzoNum = parseFloat(item.prezzo);
+        let prezzoNum = Number(item.prezzo);
         if (!isNaN(prezzoNum)) {
-          total = total + prezzoNum;
+          total += prezzoNum;
+        } else {
+          prezzoNum = 0;
         }
         let div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML = '<div class="item-info">' +
                         '<h3>' + item.nome + '</h3>' +
-                        '<p>Prezzo: ' + item.prezzo + ' €</p>' +
+                        '<p>Prezzo: ' + prezzoNum.toFixed(2) + ' €</p>' +
                         '</div>' +
                         '<div class="item-actions">' +
                         '<button onclick="removeItem(' + i + ')">Rimuovi</button>' +
@@ -177,9 +179,9 @@
 
       for (let j = 0; j < carrello.length; j++) {
         let it = carrello[j];
-        let p = parseFloat(it.prezzo);
+        let p = Number(it.prezzo);
         if (!isNaN(p)) {
-          totalPDF = totalPDF + p;
+          totalPDF += p;
         } else {
           p = 0;
         }
@@ -207,7 +209,7 @@
       renderCart();
       document.getElementById('totalPrice').innerText = '✅ Acquisto avvenuto';
     };
-
+    
     window.addEventListener('storage', function(e) {
       if (e.key === 'carrello') {
         carrello = JSON.parse(localStorage.getItem('carrello')) || [];
@@ -219,7 +221,3 @@
   </script>
 </body>
 </html>
-
-</body>
-</html>
-
