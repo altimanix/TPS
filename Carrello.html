@@ -62,7 +62,7 @@
         div.innerHTML =
           '<div class="item-info">' +
             '<h3>' + item.nome + '</h3>' +
-            '<p>Prezzo: ' + item.prezzo + ' €</p>' +
+            '<p>Prezzo: ' + item.prezzo +' </p>' +
           '</div>' +
           '<div class="item-actions">' +
             '<button onclick="removeItem(' + i + ')">Rimuovi</button>' +
@@ -92,7 +92,10 @@
       doc.setFontSize(12);
       doc.text('Scontrino Fiscale', 105, y, { align: 'center' });
       y += 10;
-      doc.text('Cliente: ' + (userData.nome || '') + ' ' + (userData.cognome || ''), 10, y);
+      doc.text('Cliente: ' + (userData.nome) + ' ' + (userData.cognome ), 10, y);
+      doc.text('Mail: ' + (userData.mail), 10, y);
+      doc.text('Età: ' + (userData.età), 10, y);
+      doc.text('Indirizzo: ' + (userData.indirizzo) , 10, y);
       y += 6;
       doc.text('Data: ' + data + ' Ora: ' + ora, 10, y);
       y += 10;
@@ -102,7 +105,7 @@
         const it = carrello[j];
         const prezzo = parsePrezzo(it.prezzo);
         totalPDF += prezzo;
-        doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, y);
+        doc.text('- ' + it.nome + ': ' + it.prezzo + 10, y);
         y += 6;
         if (y > 280) { doc.addPage(); y = 20; }
       }
@@ -110,7 +113,7 @@
       if (y > 280) { doc.addPage(); y = 20; }
       doc.line(10, y, 200, y);
       y += 8;
-      doc.text('Totale: ' + totalPDF.toFixed(2).replace('.', ',') + ' €', 10, y);
+      doc.text('Totale: ' + totalPDF.toFixed(2).replace('.', ',') + 10, y);
       doc.save('scontrino.pdf');
       alert('✅ Acquisto completato!');
       localStorage.removeItem('carrello');
