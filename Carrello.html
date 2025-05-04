@@ -131,13 +131,13 @@
         const div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML =
-          `<div class="item-info">
-             <h3>${item.nome}</h3>
-             <p>Prezzo: ${item.prezzo} €</p>
-           </div>
-           <div class="item-actions">
-             <button onclick="removeItem(${i})">Rimuovi</button>
-           </div>`;
+          `<div class=\"item-info\">` +
+            `<h3>${item.nome}</h3>` +
+            `<p>Prezzo: ${item.prezzo} €</p>` +
+          `</div>` +
+          `<div class=\"item-actions\">` +
+            `<button onclick=\"removeItem(${i})\">Rimuovi</button>` +
+          `</div>`;
         cartContainer.appendChild(div);
       });
       document.getElementById('totalPrice').innerText = 'Totale: ' + total.toFixed(2) + ' €';
@@ -160,48 +160,30 @@
       const ora = now.toLocaleTimeString('it-IT');
 
       const doc = new jsPDF();
-      let y = 20;
-      doc.setFontSize(16);
-      doc.text('Scontrino Fiscale', 105, y, { align: 'center' });
-      y += 10;
-      doc.setFontSize(12);
-      doc.text(`Cliente: ${userData.nome || ''} ${userData.cognome || ''}`, 10, y);
-      y += 6;
-      doc.text(`Data: ${data}   Ora: ${ora}`, 10, y);
-      y += 10;
-      doc.setFontSize(13);
-      doc.text('Articoli acquistati:', 10, y);
-      y += 8;
+      const lines = [];
+      lines.push('Scontrino Fiscale');
+      lines.push('');
+      lines.push(`Cliente: ${userData.nome || ''} ${userData.cognome || ''}`);
+      lines.push(`Data: ${data}   Ora: ${ora}`);
+      lines.push('');
+      lines.push('Articoli acquistati:');
 
       let totalPDF = 0;
       carrello.forEach(item => {
         const prezzoNum = parseFloat(item.prezzo.replace(/\./g, '').replace(',', '.'));
         if (!isNaN(prezzoNum)) {
           totalPDF += prezzoNum;
-          if (y > 280) {
-            doc.addPage();
-            y = 20;
-          }
-          doc.setFontSize(12);
-          doc.text(`- ${item.nome}`, 10, y);
-          doc.text(prezzoNum.toFixed(2) + ' €', 180, y, { align: 'right' });
-          y += 6;
+          lines.push(`- ${item.nome}: ${prezzoNum.toFixed(2)} €`);
         }
       });
 
-      y += 6;
-      if (y > 280) {
-        doc.addPage();
-        y = 20;
-      }
-      doc.setLineWidth(0.5);
-      doc.line(10, y, 200, y);
-      y += 8;
-      doc.setFontSize(13);
-      doc.text('Totale:', 10, y);
-      doc.text(totalPDF.toFixed(2) + ' €', 180, y, { align: 'right' });
+      lines.push('');
+      lines.push(`Totale: ${totalPDF.toFixed(2)} €`);
 
+      doc.setFontSize(12);
+      doc.text(lines, 10, 20);
       doc.save('scontrino.pdf');
+
       alert("✅ Acquisto completato! Scontrino salvato come PDF.");
       localStorage.removeItem('carrello');
       carrello = [];
