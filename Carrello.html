@@ -62,7 +62,7 @@
         div.innerHTML =
           '<div class="item-info">' +
             '<h3>' + item.nome + '</h3>' +
-            '<p>Prezzo: ' + item.prezzo + ' €</p>' +
+            '<p>Prezzo: ' + item.prezzo + '</p>' +
           '</div>' +
           '<div class="item-actions">' +
             '<button onclick="removeItem(' + i + ')">Rimuovi</button>' +
@@ -101,7 +101,7 @@
         const it = carrello[j];
         const prezzo = parsePrezzo(it.prezzo);
         totalPDF += prezzo;
-        doc.text('- ' + it.nome + ': ' + it.prezzo + ' €', 10, y); y += 6;
+        doc.text('- ' + it.nome + ': ' + it.prezzo, 10, y); y += 6;
         if (y > 280) { doc.addPage(); y = 20; }
       }
       y += 6; if (y > 280) { doc.addPage(); y = 20; }
