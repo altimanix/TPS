@@ -47,7 +47,13 @@
       let cleaned = String(val).replace(/[^0-9,\.]/g, '');
       cleaned = cleaned.replace(/,/g, '.');
       const num = parseFloat(cleaned);
-      return isNaN(num) ? 0 : num;
+      if (isNaN(num)) {
+       return 0;
+      } else {
+      return num;
+     }
+
+
     }
 
     function renderCart() {
