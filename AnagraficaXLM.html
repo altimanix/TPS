@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AnagraficaXLM</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 70%;
+      margin: 20px auto;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Elenco Persone (da JSON)</h2>
+  <div id="messaggio" style="text-align:center; color: red;"></div>
+  <table id="tabella"></table>
+
+  <script>
+    const req = new XMLHttpRequest();
+    req.open("GET", "cv.json", true);
+    req.send();
+    req.onload = function() {
+      if (req.status == 200) {
+        const persone = JSON.parse(req.responseText);
+        const tabella = document.getElementById("tabella");
+        let html = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
+        for (let i = 0; i < persone.length; i++) {
+          html += "<tr>" +
+                    "<td>" + persone[i].nome + "</td>" +
+                    "<td>" + persone[i].cognome + "</td>" +
+                    "<td>" + persone[i].indirizzo + "</td>" +
+                    "<td>" + persone[i].citta + "</td>" +
+                    "<td>" + persone[i].cap + "</td>" +
+                  "</tr>";
+        }
+        tabella.innerHTML = html;
+      } else {
+        document.getElementById("messaggio").innerHTML = "Errore nel caricamento del file JSON!";
+      }
+    };
+  </script>
+</body>
+</html>
