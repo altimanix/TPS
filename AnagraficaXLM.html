@@ -1,51 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
   <title>AnagraficaXLM</title>
   <style>
-    table {
-      border-collapse: collapse;
-      width: 70%;
-      margin: 20px auto;
-    }
-    th, td {
-      border: 1px solid #333;
-      padding: 8px;
+    /* --- Stile generale --- */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
       text-align: center;
     }
+
+    h2 {
+      background-color: #2b6cb0;
+      color: white;
+      padding: 15px;
+      margin: 0;
+      border-bottom: 4px solid #1a4f8b;
+    }
+
+    /* --- Contenitore pulsanti --- */
+    .container {
+      margin: 20px;
+    }
+
+    button {
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      font-size: 15px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #1a4f8b;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 200px;
+    }
+
+    /* --- Tabella --- */
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
     th {
-      background-color: #ddd;
+      background-color: #2b6cb0;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #messaggio {
+      color: red;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2 style="text-align:center;">Elenco Persone (da JSON)</h2>
-  <div id="messaggio" style="text-align:center; color: red;"></div>
+
+  <h2>AnagraficaXLM</h2>
+
+  <!-- Mostra messaggi di stato -->
+  <div id="messaggio"></div>
+
+  <!-- Contenitore per input e pulsanti -->
+  <div class="container">
+    <!-- Campo di testo per il nome del file -->
+    <input type="text" id="nomeFile" placeholder="Inserisci nome file (es: cv.json)">
+    <!-- Pulsante per caricare il file -->
+    <button id="caricaFile">Carica File</button>
+    <!-- Pulsante per creare la tabella -->
+    <button id="creaTabella">Crea Tabella</button>
+  </div>
+
+  <!-- Tabella dove verranno mostrati i dati -->
   <table id="tabella"></table>
 
   <script>
-    const req = new XMLHttpRequest();
-    req.open("GET", "cv.json", true);
-    req.send();
-    req.onload = function() {
-      if (req.status == 200) {
-        const persone = JSON.parse(req.responseText);
-        const tabella = document.getElementById("tabella");
-        let html = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
-        for (let i = 0; i < persone.length; i++) {
-          html += "<tr>" +
-                    "<td>" + persone[i].nome + "</td>" +
-                    "<td>" + persone[i].cognome + "</td>" +
-                    "<td>" + persone[i].indirizzo + "</td>" +
-                    "<td>" + persone[i].citta + "</td>" +
-                    "<td>" + persone[i].cap + "</td>" +
-                  "</tr>";
-        }
-        tabella.innerHTML = html;
-      } else {
-        document.getElementById("messaggio").innerHTML = "Errore nel caricamento del file JSON!";
+    /* --- VARIABILE GLOBALE per salvare i dati del file --- */
+    let datiPersone = [];
+
+    /* --- FUNZIONE per leggere il file con XMLHttpRequest --- */
+    document.getElementById("caricaFile").addEventListener("click", function() {
+      const nomeFile = document.getElementById("nomeFile").value;
+
+      if (nomeFile === "") {
+        document.getElementById("messaggio").innerHTML = "Inserisci il nome del file prima di caricare!";
+        return;
       }
-    };
+
+      // Crea l’oggetto XMLHttpRequest
+      const req = new XMLHttpRequest();
+      req.open("GET", nomeFile, true);
+      req.send();
+
+      req.onload = function() {
+        if (req.status == 200) {
+          // Converte il contenuto del file JSON in oggetto JavaScript
+          const json = JSON.parse(req.responseText);
+          datiPersone = json;
+          document.getElementById("messaggio").innerHTML = "File caricato correttamente!";
+        } else {
+          document.getElementById("messaggio").innerHTML = "Errore nel caricamento del file!";
+        }
+      };
+    });
+
+    /* --- FUNZIONE per creare la tabella con i dati letti --- */
+    document.getElementById("creaTabella").addEventListener("click", function() {
+      const tabella = document.getElementById("tabella");
+
+      if (datiPersone.length === 0) {
+        document.getElementById("messaggio").innerHTML = "Prima carica un file valido!";
+        return;
+      }
+
+      let html = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
+
+      for (let i = 0; i < datiPersone.length; i++) {
+        html += "<tr>" +
+                  "<td>" + datiPersone[i].nome + "</td>" +
+                  "<td>" + datiPersone[i].cognome + "</td>" +
+                  "<td>" + datiPersone[i].indirizzo + "</td>" +
+                  "<td>" + datiPersone[i].citta + "</td>" +
+                  "<td>" + datiPersone[i].cap + "</td>" +
+                "</tr>";
+      }
+
+      tabella.innerHTML = html;
+      document.getElementById("messaggio").innerHTML = "Tabella creata con successo!";
+    });
   </script>
+
 </body>
 </html>
