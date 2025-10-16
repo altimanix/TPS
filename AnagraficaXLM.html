@@ -3,7 +3,7 @@
 <head>
   <title>AnagraficaXLM</title>
   <style>
-    /* --- Stile generale --- */
+    /* --- Stile generale della pagina --- */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fb;
@@ -20,12 +20,13 @@
       border-bottom: 4px solid #1a4f8b;
     }
 
-    /* --- Contenitore dei pulsanti e input --- */
+    /* --- Contenitore dei pulsanti --- */
     .container {
       margin: 20px;
     }
 
-    button {
+    /* --- Stile per entrambi i bottoni --- */
+    button, label {
       background-color: #2b6cb0;
       color: white;
       border: none;
@@ -35,15 +36,16 @@
       margin: 5px;
       font-size: 15px;
       transition: background-color 0.3s;
+      display: inline-block;
     }
 
-    button:hover {
+    button:hover, label:hover {
       background-color: #1a4f8b;
     }
 
+    /* Nasconde il vero input file */
     input[type="file"] {
-      margin: 10px;
-      padding: 8px;
+      display: none;
     }
 
     /* --- Tabella --- */
@@ -82,40 +84,42 @@
 
   <h2>AnagraficaXLM</h2>
 
-  <!-- Messaggi di errore o conferma -->
+  <!-- Messaggi di stato -->
   <div id="messaggio"></div>
 
   <!-- Sezione per caricare e creare la tabella -->
   <div class="container">
-    <!-- Bottone per scegliere il file JSON -->
+    <!-- Bottone grafico per selezionare il file -->
+    <label for="fileInput">Carica File</label>
     <input type="file" id="fileInput" accept=".json">
+
     <!-- Bottone per creare la tabella -->
     <button id="creaTabella">Crea Tabella</button>
   </div>
 
-  <!-- Tabella che verrà riempita -->
+  <!-- Tabella dove verranno mostrati i dati -->
   <table id="tabella"></table>
 
   <script>
-    /* --- VARIABILE GLOBALE per i dati JSON --- */
+    /* --- VARIABILE GLOBALE --- */
     let datiPersone = [];
 
-    /* --- FUNZIONE: carica il file JSON scelto dal PC --- */
+    /* --- FUNZIONE: carica il file JSON dal computer --- */
     document.getElementById("fileInput").addEventListener("change", function() {
       const file = this.files[0]; // prende il file scelto
 
       if (file) {
-        const reader = new FileReader(); // oggetto per leggere i file locali
+        const reader = new FileReader();
 
-        // Quando il file è stato letto con successo
+        // Quando il file è letto
         reader.onload = function(e) {
           try {
-            // Simuliamo il comportamento di XMLHttpRequest usando lo stesso approccio
-            const req = new XMLHttpRequest(); // creo oggetto richiesta
-            req.open("GET", file.name, true); // (solo a scopo dimostrativo)
-            req.send(); // invia la richiesta (non serve realmente, ma rimane nel codice per esercizio)
-            
-            // Converte il testo JSON in un oggetto JavaScript
+            // Simulazione del comportamento XMLHttpRequest (come richiesto)
+            const req = new XMLHttpRequest();
+            req.open("GET", file.name, true);
+            req.send();
+
+            // Converte il testo del file JSON in oggetto JavaScript
             datiPersone = JSON.parse(e.target.result);
             document.getElementById("messaggio").innerHTML = "File caricato correttamente!";
           } catch (errore) {
@@ -123,14 +127,11 @@
           }
         };
 
-        // Legge il contenuto del file come testo
         reader.readAsText(file);
-      } else {
-        document.getElementById("messaggio").innerHTML = "Nessun file selezionato!";
       }
     });
 
-    /* --- FUNZIONE: crea la tabella con i dati letti --- */
+    /* --- FUNZIONE: crea la tabella con i dati --- */
     document.getElementById("creaTabella").addEventListener("click", function() {
       const tabella = document.getElementById("tabella");
 
@@ -139,10 +140,10 @@
         return;
       }
 
-      // Crea intestazione tabella
+      // Intestazione tabella
       let html = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
 
-      // Aggiunge una riga per ogni persona
+      // Riga per ogni persona
       for (let i = 0; i < datiPersone.length; i++) {
         html += "<tr>" +
                   "<td>" + datiPersone[i].nome + "</td>" +
@@ -153,7 +154,6 @@
                 "</tr>";
       }
 
-      // Inserisce la tabella nella pagina
       tabella.innerHTML = html;
       document.getElementById("messaggio").innerHTML = "Tabella creata con successo!";
     });
@@ -161,3 +161,4 @@
 
 </body>
 </html>
+
