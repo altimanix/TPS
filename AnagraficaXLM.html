@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="it">
+<html>
 <head>
   <title>AnagraficaXLM</title>
   <style>
-    /* --- Stile generale della pagina --- */
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f7fb;
@@ -20,12 +19,10 @@
       border-bottom: 4px solid #1a4f8b;
     }
 
-    /* --- Contenitore dei pulsanti --- */
     .container {
       margin: 20px;
     }
 
-    /* --- Stile per entrambi i bottoni --- */
     button, label {
       background-color: #2b6cb0;
       color: white;
@@ -43,12 +40,10 @@
       background-color: #1a4f8b;
     }
 
-    /* Nasconde il vero input file */
     input[type="file"] {
       display: none;
     }
 
-    /* --- Tabella --- */
     table {
       border-collapse: collapse;
       width: 80%;
@@ -82,70 +77,48 @@
 </head>
 <body>
 
-  <h2>AnagraficaXLM</h2>
-
-  <!-- Messaggi di stato -->
+  <h2>Tabella da file XLM</h2>
   <div id="messaggio"></div>
 
-  <!-- Sezione per caricare e creare la tabella -->
   <div class="container">
-    <!-- Bottone grafico per selezionare il file -->
     <label for="fileInput">Carica File</label>
     <input type="file" id="fileInput" accept=".json">
-
-    <!-- Bottone per creare la tabella -->
     <button id="creaTabella">Crea Tabella</button>
   </div>
 
-  <!-- Tabella dove verranno mostrati i dati -->
   <table id="tabella"></table>
 
   <script>
-    /* --- VARIABILE GLOBALE --- */
     let datiPersone = [];
 
-    /* --- FUNZIONE: carica il file JSON dal computer --- */
     document.getElementById("fileInput").addEventListener("change", function() {
-      const file = this.files[0]; // prende il file scelto
-
+      const file = this.files[0];
       if (file) {
         const reader = new FileReader();
-
-        // Quando il file è letto
         reader.onload = function(e) {
           try {
-            // Simulazione del comportamento XMLHttpRequest (come richiesto)
             const req = new XMLHttpRequest();
             req.open("GET", file.name, true);
             req.send();
-
-            // Converte il testo del file JSON in oggetto JavaScript
             datiPersone = JSON.parse(e.target.result);
-            document.getElementById("messaggio").innerHTML = "File caricato correttamente!";
+            document.getElementById("messaggio").innerHTML = "File caricato correttamente";
           } catch (errore) {
-            document.getElementById("messaggio").innerHTML = "Errore: il file non è in formato JSON valido!";
+            document.getElementById("messaggio").innerHTML = "Errore: il file non è in un formato valido";
           }
         };
-
         reader.readAsText(file);
       }
     });
 
-    /* --- FUNZIONE: crea la tabella con i dati --- */
     document.getElementById("creaTabella").addEventListener("click", function() {
       const tabella = document.getElementById("tabella");
-
       if (datiPersone.length === 0) {
-        document.getElementById("messaggio").innerHTML = "Prima seleziona un file JSON!";
+        document.getElementById("messaggio").innerHTML = "Prima seleziona un file";
         return;
       }
-
-      // Intestazione tabella
-      let html = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
-
-      // Riga per ogni persona
+      let tab = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
       for (let i = 0; i < datiPersone.length; i++) {
-        html += "<tr>" +
+        tab += "<tr>" +
                   "<td>" + datiPersone[i].nome + "</td>" +
                   "<td>" + datiPersone[i].cognome + "</td>" +
                   "<td>" + datiPersone[i].indirizzo + "</td>" +
@@ -153,12 +126,11 @@
                   "<td>" + datiPersone[i].cap + "</td>" +
                 "</tr>";
       }
-
-      tabella.innerHTML = html;
-      document.getElementById("messaggio").innerHTML = "Tabella creata con successo!";
+      tabella.innerHTML = tab;
     });
   </script>
 
 </body>
 </html>
+
 
