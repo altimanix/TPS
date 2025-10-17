@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AnagraficaXLMavanzata</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
+    h2 {
+      background-color: #2b6cb0;
+      color: white;
+      padding: 15px;
+      margin: 0;
+      border-bottom: 4px solid #1a4f8b;
+    }
+
+    .container {
+      margin: 20px;
+    }
+
+    button, label {
+      background-color: #2b6cb0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      font-size: 15px;
+      transition: background-color 0.3s;
+      display: inline-block;
+    }
+
+    button:hover, label:hover {
+      background-color: #1a4f8b;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2b6cb0;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    #messaggio {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Tabella da file XLM</h2>
+  <div id="messaggio"></div>
+
+  <div class="container">
+    <label for="fileInput">Carica File</label>
+    <input type="file" id="fileInput">
+    <button id="creaTabella">Crea Tabella</button>
+  </div>
+
+  <table id="tabella"></table>
+
+  <script>
+    let datiPersone = [];
+
+    document.getElementById("fileInput").addEventListener("change", function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const req = new XMLHttpRequest();
+            req.open("GET", file.name, true);
+            req.send();
+            datiPersone = JSON.parse(e.target.result);
+            document.getElementById("messaggio").innerHTML = "File caricato correttamente";
+          } catch (errore) {
+            document.getElementById("messaggio").innerHTML = "Errore: il file non è in un formato valido";
+          }
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    document.getElementById("creaTabella").addEventListener("click", function() {
+      const tabella = document.getElementById("tabella");
+      if (datiPersone.length === 0) {
+        document.getElementById("messaggio").innerHTML = "Prima seleziona un file";
+        return;
+      }
+      let tab = "<tr><th>Nome</th><th>Cognome</th><th>Data</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
+      for (let i = 0; i < datiPersone.length; i++) {
+        tab += "<tr>" +
+                  "<td>" + datiPersone[i].nome + "</td>" +
+                  "<td>" + datiPersone[i].cognome + "</td>" +
+                  "<td>" + datiPersone[i].data+ "</td>" +
+                  "<td>" + datiPersone[i].indirizzo + "</td>" +
+                  "<td>" + datiPersone[i].citta + "</td>" +
+                  "<td>" + datiPersone[i].cap + "</td>" +
+                "</tr>";
+      }
+      tabella.innerHTML = tab;
+            document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
+
+    });
+  </script>
+
+</body>
+</html>
