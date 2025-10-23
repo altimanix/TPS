@@ -81,8 +81,8 @@
   <div id="messaggio"></div>
 
   <div class="container">
-    <label for="fileInput">Carica File</label>
-    <input type="file" id="fileInput">
+    <label for="fileInserito">Carica File</label>
+    <input type="file" id="fileInserito">
     <button id="creaTabella">Crea Tabella</button>
   </div>
 
@@ -105,7 +105,7 @@
 
   <script>
     let datiPersone = [];
-    document.getElementById("fileInput").addEventListener("change", function() {
+    document.getElementById("fileInserito").addEventListener("change", function() {
       const file = this.files[0];
       if (file) {
         const reader = new FileReader();
@@ -150,7 +150,7 @@
       document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
     });
     document.getElementById("bottoneCerca").onclick = function() {
-      let lettera = document.getElementById("letteraInserta").value.toUpperCase();
+      let lettera = document.getElementById("letteraInserita").value.toUpperCase();
       let tabella = document.getElementById("tabella");
 
       if (lettera === "") {
@@ -188,7 +188,7 @@
       document.getElementById("messaggio").innerHTML = "Risultati per la lettera: " + lettera;
     };
     document.getElementById("bottoneGenerazione").onclick = function() {
-      let dataInserita = document.getElementById("dataSelect").value;
+      let dataInserita = document.getElementById("dataSelezionata").value;
       if (dataInserita === "") {
         document.getElementById("risultatoGenerazione").innerHTML = "Seleziona una data.";
         return;
