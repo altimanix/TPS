@@ -77,7 +77,7 @@
 </head>
 <body>
 
-  <h2>Tabella da file XLM</h2>
+  <h2>Tabella anagrafica con filtri</h2>
   <div id="messaggio"></div>
 
   <div class="container">
@@ -87,19 +87,17 @@
   </div>
 
   <table id="tabella"></table>
-
-  <!-- 🔍 Ricerca per lettera -->
+  
   <div class="container">
-    <h3>Ricerca cognomi per lettera iniziale</h3>
-    <input type="text" id="letteraInput" maxlength="1" placeholder="Scrivi una lettera">
+    <h3>Ricerca persone per cognomi </h3>
+    <input type="text" id="letteraInserita" maxlength="1" placeholder="Scrivi la prima lettera del cognome">
     <button id="bottoneCerca">Cerca</button>
   </div>
 
-  <!-- 📅 Selezione generazione -->
   <div class="container">
-    <h3>Scopri la generazione</h3>
-    <select id="dataSelect">
-      <option value="">-- Seleziona una data di nascita --</option>
+    <h3>Scopri la generazione della persona</h3>
+    <select id="dataSelezionata">
+      <option value="">Seleziona una data di nascita </option>
     </select>
     <button id="bottoneGenerazione">Calcola generazione</button>
     <p id="risultatoGenerazione" style="font-weight:bold;"></p>
@@ -107,8 +105,6 @@
 
   <script>
     let datiPersone = [];
-
-    // --- Carica il file JSON ---
     document.getElementById("fileInput").addEventListener("change", function() {
       const file = this.files[0];
       if (file) {
@@ -117,15 +113,13 @@
           try {
             datiPersone = JSON.parse(e.target.result);
             document.getElementById("messaggio").innerHTML = "File caricato correttamente";
-
-            // Popola il menu delle date di nascita
-            let select = document.getElementById("dataSelect");
-            select.innerHTML = '<option value="">-- Seleziona una data di nascita --</option>';
+            let selezioneData = document.getElementById("dataSelezionata");
+            selezioneData.innerHTML = '<option value="">Seleziona una data di nascita</option>';
             for (let i = 0; i < datiPersone.length; i++) {
               let opzione = document.createElement("option");
               opzione.value = datiPersone[i].data;
               opzione.textContent = datiPersone[i].data + " - " + datiPersone[i].cognome + " " + datiPersone[i].nome;
-              select.appendChild(opzione);
+              selezioneData.appendChild(opzione);
             }
 
           } catch (errore) {
@@ -135,8 +129,6 @@
         reader.readAsText(file);
       }
     });
-
-    // --- Crea tabella completa ---
     document.getElementById("creaTabella").addEventListener("click", function() {
       const tabella = document.getElementById("tabella");
       if (datiPersone.length === 0) {
@@ -157,10 +149,8 @@
       tabella.innerHTML = tab;
       document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
     });
-
-    // --- STEP 2: Ricerca per lettera ---
     document.getElementById("bottoneCerca").onclick = function() {
-      let lettera = document.getElementById("letteraInput").value.toUpperCase();
+      let lettera = document.getElementById("letteraInserta").value.toUpperCase();
       let tabella = document.getElementById("tabella");
 
       if (lettera === "") {
@@ -197,8 +187,6 @@
       tabella.innerHTML = tab;
       document.getElementById("messaggio").innerHTML = "Risultati per la lettera: " + lettera;
     };
-
-    // --- STEP 3: Calcola generazione da data selezionata ---
     document.getElementById("bottoneGenerazione").onclick = function() {
       let dataInserita = document.getElementById("dataSelect").value;
       if (dataInserita === "") {
@@ -209,17 +197,17 @@
       let anno = new Date(dataInserita).getFullYear();
       let generazione = "";
 
-      if (anno >= 1901 && anno <= 1927) generazione = "Greatest Generation";
-      else if (anno >= 1928 && anno <= 1945) generazione = "Generazione Silenziosa";
-      else if (anno >= 1946 && anno <= 1964) generazione = "Baby Boomers";
-      else if (anno >= 1965 && anno <= 1980) generazione = "Generazione X";
-      else if (anno >= 1981 && anno <= 1996) generazione = "Millennials";
-      else if (anno >= 1997 && anno <= 2012) generazione = "Generazione Z";
-      else if (anno >= 2013) generazione = "Generazione Alpha";
-      else generazione = "Anno non riconosciuto.";
+      if (anno >= 1901 && anno <= 1927) generazione = "greatest Generation";
+      else if (anno >= 1928 && anno <= 1945) generazione = "generazione Silenziosa";
+      else if (anno >= 1946 && anno <= 1964) generazione = "generazione baby Boomers";
+      else if (anno >= 1965 && anno <= 1980) generazione = "generazione X";
+      else if (anno >= 1981 && anno <= 1996) generazione = "generazione dei millennials";
+      else if (anno >= 1997 && anno <= 2012) generazione = "generazione Z";
+      else if (anno >= 2013) generazione = "generazione Alpha";
+      else generazione = "Generazione troppo vecchia";
 
       document.getElementById("risultatoGenerazione").innerHTML =
-        "Appartiene alla: " + generazione;
+        "Appartiene alla  " + generazione;
     };
   </script>
 </body>
