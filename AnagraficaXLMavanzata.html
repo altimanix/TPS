@@ -23,7 +23,7 @@
       margin: 20px;
     }
 
-    button, label {
+    button, label, input[type="text"], input[type="date"] {
       background-color: #2b6cb0;
       color: white;
       border: none;
@@ -34,6 +34,13 @@
       font-size: 15px;
       transition: background-color 0.3s;
       display: inline-block;
+    }
+
+    input[type="text"], input[type="date"] {
+      background-color: white;
+      color: black;
+      border: 2px solid #2b6cb0;
+      cursor: text;
     }
 
     button:hover, label:hover {
@@ -77,7 +84,7 @@
 </head>
 <body>
 
-  <h2>Tabella da file XLM</h2>
+  <h2>Tabella da file JSON</h2>
   <div id="messaggio"></div>
 
   <div class="container">
@@ -86,20 +93,28 @@
     <button id="creaTabella">Crea Tabella</button>
   </div>
 
+  <div class="container">
+    <h3>Ricerca per lettera e generazione</h3>
+    <input type="text" id="letteraInput" maxlength="1" placeholder="Lettera iniziale">
+    <button id="bottoneCerca">Cerca</button>
+    <input type="date" id="dataInput">
+    <button id="bottoneGenerazione">Calcola generazione</button>
+  </div>
+
   <table id="tabella"></table>
+
+  <p id="risultatoGenerazione" style="font-weight:bold;"></p>
 
   <script>
     let datiPersone = [];
 
+    // --- CARICAMENTO FILE JSON ---
     document.getElementById("fileInput").addEventListener("change", function() {
       const file = this.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
           try {
-            const req = new XMLHttpRequest();
-            req.open("GET", file.name, true);
-            req.send();
             datiPersone = JSON.parse(e.target.result);
             document.getElementById("messaggio").innerHTML = "File caricato correttamente";
           } catch (errore) {
@@ -110,27 +125,84 @@
       }
     });
 
+    // --- CREA TABELLA COMPLETA ---
     document.getElementById("creaTabella").addEventListener("click", function() {
       const tabella = document.getElementById("tabella");
       if (datiPersone.length === 0) {
         document.getElementById("messaggio").innerHTML = "Prima seleziona un file";
         return;
       }
-      let tab = "<tr><th>Nome</th><th>Cognome</th><th>Data</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
+      let tab = "<tr><th>Nome</th><th>Cognome</th><th>Data di nascita</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
       for (let i = 0; i < datiPersone.length; i++) {
         tab += "<tr>" +
                   "<td>" + datiPersone[i].nome + "</td>" +
                   "<td>" + datiPersone[i].cognome + "</td>" +
-                  "<td>" + datiPersone[i].data+ "</td>" +
+                  "<td>" + datiPersone[i].data + "</td>" +
                   "<td>" + datiPersone[i].indirizzo + "</td>" +
                   "<td>" + datiPersone[i].citta + "</td>" +
                   "<td>" + datiPersone[i].cap + "</td>" +
                 "</tr>";
       }
       tabella.innerHTML = tab;
-            document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
-
+      document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
     });
+
+    // --- RICERCA COGNOMI PER LETTERA ---
+    document.getElementById("bottoneCerca").onclick = function() {
+      let lettera = document.getElementById("letteraInput").value.toUpperCase();
+      let tabella = document.getElementById("tabella");
+
+      if (lettera === "") {
+        document.getElementById("messaggio").innerHTML = "Scrivi una lettera per cercare.";
+        return;
+      }
+
+      let risultati = [];
+      for (let i = 0; i < datiPersone.length; i++) {
+        let cognome = datiPersone[i].cognome.toUpperCase();
+        if (cognome.startsWith(lettera)) {
+          risultati.push(datiPersone[i]);
+        }
+      }
+
+      if (risultati.length === 0) {
+        document.getElementById("messaggio").innerHTML = "Nessun cognome trovato con la lettera " + lettera;
+        tabella.innerHTML = "";
+        return;
+      }
+
+      let tab = "<tr><th>Nome</th><th>Cognome</th></tr>";
+      for (let i = 0; i < risultati.length; i++) {
+        tab += "<tr><td>" + risultati[i].nome + "</td><td>" + risultati[i].cognome + "</td></tr>";
+      }
+
+      tabella.innerHTML = tab;
+      document.getElementById("messaggio").innerHTML = "Risultati per la lettera: " + lettera;
+    };
+
+    // --- CALCOLO GENERAZIONE ---
+    document.getElementById("bottoneGenerazione").onclick = function() {
+      let dataInserita = document.getElementById("dataInput").value;
+      if (dataInserita === "") {
+        document.getElementById("risultatoGenerazione").innerHTML = "Inserisci una data di nascita.";
+        return;
+      }
+
+      let anno = new Date(dataInserita).getFullYear();
+      let generazione = "";
+
+      if (anno >= 1901 && anno <= 1927) generazione = "Greatest Generation";
+      else if (anno >= 1928 && anno <= 1945) generazione = "Generazione Silenziosa";
+      else if (anno >= 1946 && anno <= 1964) generazione = "Baby Boomers";
+      else if (anno >= 1965 && anno <= 1980) generazione = "Generazione X";
+      else if (anno >= 1981 && anno <= 1996) generazione = "Millennials";
+      else if (anno >= 1997 && anno <= 2012) generazione = "Generazione Z";
+      else if (anno >= 2013) generazione = "Generazione Alpha";
+      else generazione = "Anno non riconosciuto.";
+
+      document.getElementById("risultatoGenerazione").innerHTML =
+        "Appartiene alla: " + generazione;
+    };
   </script>
 
 </body>
