@@ -108,7 +108,6 @@
       xhr.send();
     }
 
-    // Funzione per creare la tabella HTML
     function mostraTabella(dati) {
       const tabella = document.getElementById("tabella");
       if (!dati || dati.length === 0) {
@@ -130,7 +129,6 @@
       tabella.innerHTML = tab;
     }
 
-    // Evento click sul pulsante
     document.getElementById("creaTabella").addEventListener("click", caricaDati);
   </script>
 
