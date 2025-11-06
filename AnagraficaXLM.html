@@ -81,16 +81,15 @@
   <div id="messaggio"></div>
 
   <div class="container">
-    <button id="creaTabella">Carica Tabella da persone.json</button>
+    <button id="creaTabella">Carica Tabella</button>
   </div>
 
   <table id="tabella"></table>
 
   <script>
-    // Funzione per caricare i dati da persone.json
     function caricaDati() {
       const xhr = new XMLHttpRequest();
-      xhr.open("GET", "listatps.json", true);
+      xhr.open("GET", "persone.json", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
