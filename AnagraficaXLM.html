@@ -77,62 +77,66 @@
 </head>
 <body>
 
-  <h2>Tabella da file XLM</h2>
+  <h2>Tabella da file JSON</h2>
   <div id="messaggio"></div>
 
   <div class="container">
-    <label for="fileInput">Carica File</label>
-    <input type="file" id="fileInput">
-    <button id="creaTabella">Crea Tabella</button>
+    <button id="creaTabella">Carica Tabella da persone.json</button>
   </div>
 
   <table id="tabella"></table>
 
   <script>
-    let datiPersone = [];
-
-    document.getElementById("fileInput").addEventListener("change", function() {
-      const file = this.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          try {
-            const req = new XMLHttpRequest();
-            req.open("GET", file.name, true);
-            req.send();
-            datiPersone = JSON.parse(e.target.result);
-            document.getElementById("messaggio").innerHTML = "File caricato correttamente";
-          } catch (errore) {
-            document.getElementById("messaggio").innerHTML = "Errore: il file non è in un formato valido";
+    // Funzione per caricare i dati da persone.json
+    function caricaDati() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "persone.json", true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            try {
+              const datiPersone = JSON.parse(xhr.responseText);
+              mostraTabella(datiPersone.lista || datiPersone);
+              document.getElementById("messaggio").innerHTML = "Tabella caricata con successo";
+            } catch (errore) {
+              document.getElementById("messaggio").innerHTML = "Errore: il file JSON non è valido";
+            }
+          } else {
+            document.getElementById("messaggio").innerHTML = "Errore nel caricamento del file (status " + xhr.status + ")";
           }
-        };
-        reader.readAsText(file);
-      }
-    });
+        }
+      };
+      xhr.send();
+    }
 
-    document.getElementById("creaTabella").addEventListener("click", function() {
+    // Funzione per creare la tabella HTML
+    function mostraTabella(dati) {
       const tabella = document.getElementById("tabella");
-      if (datiPersone.length === 0) {
-        document.getElementById("messaggio").innerHTML = "Prima seleziona un file";
+      if (!dati || dati.length === 0) {
+        document.getElementById("messaggio").innerHTML = "Nessun dato disponibile";
+        tabella.innerHTML = "";
         return;
       }
+
       let tab = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
-      for (let i = 0; i < datiPersone.length; i++) {
+      for (let i = 0; i < dati.length; i++) {
         tab += "<tr>" +
-                  "<td>" + datiPersone[i].nome + "</td>" +
-                  "<td>" + datiPersone[i].cognome + "</td>" +
-                  "<td>" + datiPersone[i].indirizzo + "</td>" +
-                  "<td>" + datiPersone[i].citta + "</td>" +
-                  "<td>" + datiPersone[i].cap + "</td>" +
-                "</tr>";
+                 "<td>" + (dati[i].nome || "") + "</td>" +
+                 "<td>" + (dati[i].cognome || "") + "</td>" +
+                 "<td>" + (dati[i].indirizzo || "") + "</td>" +
+                 "<td>" + (dati[i].citta || "") + "</td>" +
+                 "<td>" + (dati[i].cap || "") + "</td>" +
+               "</tr>";
       }
       tabella.innerHTML = tab;
-            document.getElementById("messaggio").innerHTML = "Tabella creata con successo";
+    }
 
-    });
+    // Evento click sul pulsante
+    document.getElementById("creaTabella").addEventListener("click", caricaDati);
   </script>
 
 </body>
 </html>
+
 
 
