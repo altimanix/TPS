@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrazione</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    h1, h3 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 22px; }
+      h3 { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>E-commerce di Altimani</h1>
+  <h3>Registrati</h3>
+
+  <form id="formRegistrazione">
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" required>
+
+    <label for="cognome">Cognome</label>
+    <input type="text" name="cognome" id="cognome" required>
+
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email" required>
+
+    <label for="indirizzo">Indirizzo</label>
+    <input type="text" name="indirizzo" id="indirizzo" required>
+
+    <label for="eta">Età</label>
+    <input type="number" name="eta" id="eta" required>
+
+    <input type="submit" value="Registrati">
+  </form>
+
+  <script>
+    function caricaTelefoniDaXML(callback) {
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "telefoni.xml", true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const xmlDoc = xhr.responseXML;
+          const telefoniXML = xmlDoc.getElementsByTagName("telefono");
+          const telefoni = [];
+
+          for (let i = 0; i < telefoniXML.length; i++) {
+            const t = telefoniXML[i];
+            telefoni.push({
+              marca: t.getElementsByTagName("marca")[0].textContent,
+              nome: t.getElementsByTagName("nome")[0].textContent,
+              ram: t.getElementsByTagName("ram")[0].textContent,
+              memoria: t.getElementsByTagName("memoria")[0].textContent,
+              fotocamera: t.getElementsByTagName("fotocamera")[0].textContent,
+              frequenza: t.getElementsByTagName("frequenza")[0].textContent,
+              prezzo: t.getElementsByTagName("prezzo")[0].textContent,
+              imgUrl: t.getElementsByTagName("imgUrl")[0].textContent
+            });
+          }
+
+          callback(telefoni);
+        }
+      };
+      xhr.send();
+    }
+
+    document.getElementById("formRegistrazione").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const cognome = document.getElementById("cognome").value;
+      const email = document.getElementById("email").value;
+      const indirizzo = document.getElementById("indirizzo").value;
+      const eta = document.getElementById("eta").value;
+
+      const datiUtente = { nome, cognome, email, indirizzo, eta };
+      localStorage.setItem("datiUtente", JSON.stringify(datiUtente));
+
+      caricaTelefoniDaXML(function(telefoni) {
+        localStorage.setItem("telefoni", JSON.stringify(telefoni));
+        window.location.href = "HomeE-commerce.html";
+      });
+    });
+  </script>
+</body>
+</html>
