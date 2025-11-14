@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogo>
+<telefono>
+<marca>Samsung</marca>
+<nome>Samsung Galaxy S25 Ultra</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>200 MP principale, 12 MP ultra-grandangolare, 10 MP teleobiettivo, 10 MP
+periscopico</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1619</prezzo>
+<imgUrl>https://img.tuttoandroid.net/wp-content/uploads/2025/01/Samsung-Galaxy-S25-Ultr
+a-tag.png</imgUrl>
+</telefono>
+<telefono>
+<marca>Samsung</marca>
+<nome>Samsung Galaxy S25+</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP principale, 12 MP ultra-grandangolare, 10 MP
+teleobiettivo</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1299</prezzo>
+<imgUrl>https://static.comet.it/b2c/public/e-cat/SAM08063E/SAM08063E-2c146d3309-0.jpg
+</imgUrl>
+</telefono>
+<telefono>
+<marca>Samsung</marca>
+<nome>Samsung Galaxy S25</nome>
+<ram>8 GB</ram>
+<memoria>256 GB</memoria>
+<fotocamera>50 MP principale, 12 MP ultra-grandangolare, 10 MP
+teleobiettivo</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€999</prezzo>
+<imgUrl>https://media.ldlc.com/r374/ld/products/00/06/20/57/LD0006205731.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Samsung</marca>
+<nome>Samsung Galaxy Z Fold 5</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP principale, 12 MP ultra-grandangolare, 10 MP
+teleobiettivo</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1799</prezzo>
+<imgUrl>https://www.smartworld.it/images/2023/07/21/samsung-galaxy-z-fold-5-scheda-tecn
+ica-orig.png</imgUrl>
+</telefono>
+<telefono>
+<marca>Apple</marca>
+<nome>iPhone 15 Pro Max</nome>
+<ram>8 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>48 MP principale, 12 MP ultra-grandangolare, 12 MP
+teleobiettivo</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1689</prezzo>
+<imgUrl>https://m.media-amazon.com/images/I/815eN0AS-CL._AC_SL1500_.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Apple</marca>
+<nome>iPhone 15 Pro</nome>
+<ram>8 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>48 MP principale, 12 MP ultra-grandangolare, 12 MP
+teleobiettivo</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1589</prezzo>
+<imgUrl>https://files.refurbed.com/ii/iphone-15-pro-1694588677.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Apple</marca>
+<nome>iPhone 15 Plus</nome>
+<ram>6 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>48 MP principale, 12 MP ultra-grandangolare</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1349</prezzo>
+<imgUrl>https://files.refurbed.com/ii/iphone-15-plus-1694600365.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Apple</marca>
+<nome>iPhone 15</nome>
+<ram>6 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>48 MP principale, 12 MP ultra-grandangolare</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1249</prezzo>
+<imgUrl>https://cf6.certideal.com/32932-prod_large/iphone-15-128-gb-verde.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Xiaomi</marca>
+<nome>Xiaomi 15 Ultra</nome>
+<ram>16 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP quadrupla Leica (principale, ultra-grandangolare, teleobiettivo,
+periscopico)</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1199</prezzo>
+<imgUrl>https://www.tecnosell.com/media/catalog/product/cache/60c31028333b516fd0f894
+5d994bb7aa/1/5/15wh.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Xiaomi</marca>
+<nome>Xiaomi 15 Pro</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP tripla Leica</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€999</prezzo>
+<imgUrl>https://m.media-amazon.com/images/I/61w+BAcW2kL._AC_SL1000_.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Xiaomi</marca>
+<nome>Xiaomi 15</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP tripla</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€899</prezzo>
+<imgUrl>https://cdn.beebom.com/mobile/xiaomi-15-front-and-back-1-356w.webp</imgUrl>
+</telefono>
+<telefono>
+<marca>Xiaomi</marca>
+<nome>Xiaomi 14 Ultra</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP quadrupla Leica</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1099</prezzo>
+<imgUrl>https://m.media-amazon.com/images/I/51XJHAjKJmL._AC_SL1001_.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Huawei</marca>
+<nome>Huawei Mate 70 RS Ultimate Design</nome>
+<ram>16 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP tripla Leica</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1599</prezzo>
+<imgUrl>https://it.etoren.com/upload/images/0.60267800_1732846246_huawei-mate-70-rs-
+ultimate-5g-plu-al10-dual-sim-512gb-black-16gb-ram-china-version.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Huawei</marca>
+<nome>Huawei Mate 70 Pro+</nome>
+<ram>16 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP tripla</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1399</prezzo>
+<imgUrl>https://cdn.kalvo.com/uploads/img/large/67077-huawei-mate-70-pro-plus.jpg</imgU
+rl>
+</telefono>
+<telefono>
+<marca>Huawei</marca>
+<nome>Huawei Mate 70 Pro</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP tripla</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€1199</prezzo>
+<imgUrl>https://cdn.kalvo.com/uploads/img/large/67087-huawei-mate-70-pro.jpg</imgUrl>
+</telefono>
+<telefono>
+<marca>Huawei</marca>
+<nome>Huawei Mate 70</nome>
+<ram>12 GB</ram>
+<memoria>512 GB</memoria>
+<fotocamera>50 MP doppia</fotocamera>
+<frequenza>120 Hz</frequenza>
+<prezzo>€999</prezzo>
+<imgUrl>https://sm.mashable.com/t/mashable_in/photo/default/untitled-design-20241108-11
+1940-0000_e6ct.1248.jpg</imgUrl>
+</telefono>
+</catalogo>
