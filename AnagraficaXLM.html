@@ -119,11 +119,11 @@
       let tab = "<tr><th>Nome</th><th>Cognome</th><th>Indirizzo</th><th>Città</th><th>CAP</th></tr>";
       for (let i = 0; i < dati.length; i++) {
         tab += "<tr>" +
-                 "<td>" + (dati[i].nome || "") + "</td>" +
-                 "<td>" + (dati[i].cognome || "") + "</td>" +
-                 "<td>" + (dati[i].indirizzo || "") + "</td>" +
-                 "<td>" + (dati[i].citta || "") + "</td>" +
-                 "<td>" + (dati[i].cap || "") + "</td>" +
+                 "<td>" + (dati[i].nome) + "</td>" +
+                 "<td>" + (dati[i].cognome ) + "</td>" +
+                 "<td>" + (dati[i].indirizzo) + "</td>" +
+                 "<td>" + (dati[i].citta) + "</td>" +
+                 "<td>" + (dati[i].cap) + "</td>" +
                "</tr>";
       }
       tabella.innerHTML = tab;
