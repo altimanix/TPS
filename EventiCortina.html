@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EventiCortina</title>
+<title>Eventi - Milano Cortina 2026</title>
+
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
@@ -53,7 +54,6 @@
         padding: 8px 12px;
         border-radius: 6px;
         transition: background 0.2s;
-        display: inline-block;
     }
 
     .nav-buttons a:hover {
@@ -61,57 +61,76 @@
     }
 
     main {
-        padding: 120px 20px 40px 20px;
+        padding: 120px 20px 40px;
         text-align: center;
         flex: 1;
     }
 
     h1 {
-        margin: 0 0 20px;
+        margin-bottom: 30px;
         color: #111827;
     }
 
-    /* Banner eventi */
+    /* Container banner */
     .banner-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 20px;
+        gap: 24px;
     }
 
     .banner {
-        width: 300px;
-        height: 200px;
-        background-color: #e2e8f0;
-        border-radius: 10px;
+        width: 320px;
+        background-color: #ffffff;
+        border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s;
-        cursor: pointer;
-        text-align: center;
-        color: #003366;
-        font-weight: bold;
-        font-size: 18px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: left;
     }
 
     .banner:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
     }
 
     .banner img {
         width: 100%;
-        height: 120px;
+        height: 150px;
         object-fit: cover;
     }
 
-    .banner p {
-        margin: 8px 0 0 0;
-        font-size: 16px;
+    .banner-content {
+        padding: 16px;
+    }
+
+    .banner-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .banner-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #003366;
+    }
+
+    .event-date {
+        font-size: 13px;
+        color: #ffffff;
+        background-color: #003366;
+        padding: 4px 8px;
+        border-radius: 6px;
+        white-space: nowrap;
+    }
+
+    .banner-content p {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+        line-height: 1.4;
     }
 
     footer {
@@ -123,15 +142,14 @@
         font-size: 14px;
     }
 
-    @media (max-width: 980px) {
-        .banner { width: 45%; }
-    }
-
-    @media (max-width: 600px) {
-        .banner { width: 90%; }
+    @media (max-width: 768px) {
+        .banner {
+            width: 90%;
+        }
     }
 </style>
 </head>
+
 <body>
 
 <nav class="navbar">
@@ -150,23 +168,51 @@
     <h1>Eventi di Milano Cortina 2026</h1>
 
     <div class="banner-container">
-        <!-- Banner 1: Accensione della fiaccola -->
+
+        <!-- Evento 1 -->
         <div class="banner">
-            <img src="https://via.placeholder.com/300x120?text=Accensione+Fiaccola+Milano" alt="Accensione della fiaccola a Milano">
-            <p>Accensione della Fiaccola a Milano</p>
+            <img src="https://altimanix.github.io/TPS/fiaccola.jpeg">
+            <div class="banner-content">
+                <div class="banner-header">
+                    <p>Accensione della Fiaccola a Milano</p>                   
+                    <span class="event-date">10 Feb 2026</span>
+                </div>
+                <p>
+                    Cerimonia inaugurale dei giochi olimpici con l’accensione ufficiale
+                    della fiaccola olimpica nel cuore di Milano.
+                </p>
+            </div>
         </div>
 
-        <!-- Banner 2: Sci a Bobbio -->
+        <!-- Evento 2 -->
         <div class="banner">
-            <img src="https://via.placeholder.com/300x120?text=Sci+Bobbio" alt="Sci a Bobbio">
-            <p>ski-party a Bobbio</p>
+            <img src="https://altimanix.github.io/TPS/ski.jpg">
+            <div class="banner-content">
+                <div class="banner-header">
+                    <h3>Ski-party a Bobbio</h3>
+                    <span class="event-date">14 Feb 2026</span>
+                </div>
+                <p>
+                    Dopo i giochi, party sulla neve con DJ set a Bobbio.
+                </p>
+            </div>
         </div>
 
-        <!-- Banner 3: Spegnimento della fiaccola -->
+        <!-- Evento 3 -->
         <div class="banner">
-            <img src="https://via.placeholder.com/300x120?text=Spegnimento+Fiaccola+Verona" alt="Spegnimento della fiaccola a Verona">
-            <p>Conclusione della cerimonia a Verona</p>
+            <img src="https://altimanix.github.io/TPS/chiusura.jpg">
+            <div class="banner-content">
+                <div class="banner-header">
+                    <h3>Spegnimento della fiaccola a Verona</h3>
+                    <span class="event-date">26 Feb 2026</span>
+                </div>
+                <p>
+                    Cerimonia di chiusura dei giochi con lo spegnimento
+                    della fiaccola olimpica nella storica città di Verona.
+                </p>
+            </div>
         </div>
+
     </div>
 </main>
 
@@ -176,3 +222,4 @@
 
 </body>
 </html>
+
