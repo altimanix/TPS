@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Milano Cortina 2026</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-oQm2cT9F9efyU2Z+fJkRpjPv8XHKfYpA5x1dC0uJv6M=" crossorigin=""/>
+
     <style>
-        /* Stile base */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -53,63 +57,25 @@
             background-color: #0055aa;
         }
 
-        /* Contenuto principale */
         main {
-            padding: 100px 20px 20px 20px; /* padding-top per navbar fissa */
+            padding: 100px 20px 20px 20px;
             text-align: center;
             flex: 1;
         }
 
-        /* Logo aggiuntivo tra titolo e descrizione */
         .main-logo {
             width: 80px;
             height: 80px;
             margin: 15px 0;
         }
 
-        /* Sezione mappa */
-        .map-section {
-            margin-top: 30px;
-            position: relative;
-        }
-
-        .map-section h2 {
-            margin-bottom: 15px;
-            color: #003366;
-        }
-
-        .map-responsive {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* rapporto 16:9 */
-            height: 0;
-            overflow: hidden;
+        /* Mappa */
+        #map {
+            height: 500px;
+            max-width: 100%;
             border: 2px solid #003366;
             border-radius: 10px;
-        }
-
-        .map-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Marker puntine */
-        .marker {
-            width: 20px;
-            height: 20px;
-            background-color: red;
-            border-radius: 50%;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            border: 2px solid white;
-        }
-
-        .marker:hover {
-            transform: translate(-50%, -50%) scale(1.3);
+            margin-top: 30px;
         }
 
         /* Footer */
@@ -122,7 +88,7 @@
     </style>
 </head>
 <body>
-    <!-- Barra di navigazione fissa -->
+
     <nav class="navbar">
         <div class="logo">
             <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
@@ -135,48 +101,51 @@
         </div>
     </nav>
 
-    <!-- Contenuto principale -->
     <main>
         <h1>Benvenuti a Milano Cortina 2026!</h1>
-
-        <!-- Logo tra titolo e descrizione -->
         <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo Milano Cortina" class="main-logo">
-
         <p>Scopri dove si svolgono gli eventi sportivi in Italia.</p>
 
-        <!-- Mappa OpenStreetMap con puntine -->
-        <section class="container map-section">
-            <h2>Dove siamo</h2>
-            <div class="map-responsive">
-                <iframe 
-                    title="Milano Cortina area" 
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=11.9%2C45.2%2C12.8%2C46.0&amp;layer=mapnik" 
-                    style="border:0" 
-                    loading="lazy">
-                </iframe>
-                <!-- Puntine per eventi -->
-                <div class="marker" style="top:30%; left:10%;" title="Milano - Cerimonia di apertura"></div>
-                <div class="marker" style="top:50%; left:50%;" title="Cortina - Sci alpino"></div>
-                <div class="marker" style="top:45%; left:30%;" title="Torino - Hockey su ghiaccio"></div>
-                <div class="marker" style="top:40%; left:40%;" title="Bormio - Sci di fondo"></div>
-            </div>
-        </section>
+        <!-- Mappa Leaflet -->
+        <div id="map"></div>
     </main>
 
-    <!-- Footer -->
     <footer>
         &copy; 2026 Milano Cortina - Tutti i diritti riservati
     </footer>
 
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-o0M2O/6g4fR6NtdYyO6w32q5yPqx0ZP1j+3R7uRZ1XQ=" crossorigin="">
+    </script>
+
     <script>
-        // Mostrare tooltip quando si clicca sulle puntine
-        document.querySelectorAll('.marker').forEach(marker => {
-            marker.addEventListener('click', () => {
-                alert(marker.getAttribute('title'));
-            });
+        // Inizializza la mappa centrata tra Milano e Cortina
+        const map = L.map('map').setView([45.6, 12.0], 7);
+
+        // Aggiungi layer OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Lista degli eventi con coordinate
+        const eventi = [
+            {nome: "Milano - Cerimonia di apertura", lat: 45.4642, lng: 9.19},
+            {nome: "Cortina - Sci alpino", lat: 46.540, lng: 12.135},
+            {nome: "Torino - Hockey su ghiaccio", lat: 45.070, lng: 7.686},
+            {nome: "Bormio - Sci di fondo", lat: 46.466, lng: 10.367}
+        ];
+
+        // Aggiungi marker dinamici
+        eventi.forEach(evento => {
+            L.marker([evento.lat, evento.lng]).addTo(map)
+                .bindPopup(`<b>${evento.nome}</b>`)
+                .openPopup();
         });
     </script>
 </body>
 </html>
+
 
 
