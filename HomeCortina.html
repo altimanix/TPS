@@ -1,149 +1,168 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milano Cortina 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milano Cortina 2026</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
 
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-oQm2cT9F9efyU2Z+fJkRpjPv8XHKfYpA5x1dC0uJv6M=" crossorigin=""/>
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #003366;
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        color: white;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+    .logo {
+        display: flex;
+        align-items: center;
+    }
 
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #003366;
-            padding: 10px 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            color: white;
-        }
+    .logo-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
+    .nav-buttons a {
+        color: white;
+        text-decoration: none;
+        margin-left: 15px;
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
 
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
-        }
+    .nav-buttons a:hover {
+        background-color: #0055aa;
+    }
 
-        .nav-buttons a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-            padding: 8px 12px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
+    main {
+        padding: 120px 20px 20px 20px;
+        text-align: center;
+        flex: 1;
+    }
 
-        .nav-buttons a:hover {
-            background-color: #0055aa;
-        }
+    /* Logo principale ingrandito */
+    .main-logo {
+        width: 180px;
+        height: 180px;
+        margin: 20px 0;
+    }
 
-        main {
-            padding: 120px 20px 20px 20px; /* padding-top maggiore per navbar fissa */
-            text-align: center;
-            flex: 1;
-        }
+    /* Mappa statica */
+    .map-container {
+        position: relative;
+        display: inline-block;
+        margin-top: 30px;
+        max-width: 100%;
+    }
 
-        /* Logo principale ingrandito */
-        .main-logo {
-            width: 150px;   /* più grande */
-            height: 150px;
-            margin: 20px 0;
-        }
+    .map-img {
+        width: 100%;
+        max-width: 800px;
+        border: 2px solid #003366;
+        border-radius: 10px;
+    }
 
-        /* Mappa */
-        #map {
-            height: 600px; /* altezza fissa obbligatoria per Leaflet */
-            max-width: 100%;
-            border: 2px solid #003366;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
+    /* Puntine */
+    .marker {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
 
-        /* Footer */
-        footer {
-            background-color: #003366;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-        }
-    </style>
+    /* Tooltip eventi */
+    .marker span {
+        visibility: hidden;
+        position: absolute;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #003366;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        white-space: nowrap;
+        font-size: 14px;
+        z-index: 100;
+    }
+
+    .marker:hover span {
+        visibility: visible;
+    }
+
+    footer {
+        background-color: #003366;
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        margin-top: auto;
+    }
+</style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">
-            <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
-            <span class="site-title">Milano Cortina</span>
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
+        <span class="site-title">Milano Cortina</span>
+    </div>
+    <div class="nav-buttons">
+        <a href="eventi.html" class="nav-btn">Eventi</a>
+        <a href="ospiti.html" class="nav-btn">Ospiti</a>
+        <a href="prenotazione.html" class="nav-btn">Prenotazione</a>
+    </div>
+</nav>
+
+<main>
+    <h1>Benvenuti a Milano Cortina 2026!</h1>
+    <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo Milano Cortina" class="main-logo">
+    <p>Scopri dove si svolgono gli eventi sportivi in Italia.</p>
+
+    <!-- Mappa statica -->
+    <div class="map-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Nord_Italia_map.png" alt="Mappa Nord Italia" class="map-img">
+
+        <!-- Puntine -->
+        <div class="marker" style="top:50px; left:200px;">
+            <span>Milano - Cerimonia di apertura</span>
         </div>
-        <div class="nav-buttons">
-            <a href="eventi.html" class="nav-btn">Eventi</a>
-            <a href="ospiti.html" class="nav-btn">Ospiti</a>
-            <a href="prenotazione.html" class="nav-btn">Prenotazione</a>
+        <div class="marker" style="top:150px; left:400px;">
+            <span>Cortina - Sci alpino</span>
         </div>
-    </nav>
+        <div class="marker" style="top:120px; left:300px;">
+            <span>Torino - Hockey su ghiaccio</span>
+        </div>
+        <div class="marker" style="top:180px; left:250px;">
+            <span>Bormio - Sci di fondo</span>
+        </div>
+    </div>
+</main>
 
-    <main>
-        <h1>Benvenuti a Milano Cortina 2026!</h1>
-        <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo Milano Cortina" class="main-logo">
-        <p>Scopri dove si svolgono gli eventi sportivi in Italia.</p>
+<footer>
+    &copy; 2026 Milano Cortina - Tutti i diritti riservati
+</footer>
 
-        <!-- Mappa Leaflet -->
-        <div id="map"></div>
-    </main>
-
-    <footer>
-        &copy; 2026 Milano Cortina - Tutti i diritti riservati
-    </footer>
-
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-o0M2O/6g4fR6NtdYyO6w32q5yPqx0ZP1j+3R7uRZ1XQ=" crossorigin="">
-    </script>
-
-    <script>
-        // Inizializza la mappa centrata tra Milano e Cortina
-        const map = L.map('map').setView([45.6, 12.0], 7);
-
-        // Layer OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        // Eventi con coordinate
-        const eventi = [
-            {nome: "Milano - Cerimonia di apertura", lat: 45.4642, lng: 9.19},
-            {nome: "Cortina - Sci alpino", lat: 46.540, lng: 12.135},
-            {nome: "Torino - Hockey su ghiaccio", lat: 45.070, lng: 7.686},
-            {nome: "Bormio - Sci di fondo", lat: 46.466, lng: 10.367}
-        ];
-
-        // Aggiungi marker dinamici
-        eventi.forEach(evento => {
-            L.marker([evento.lat, evento.lng]).addTo(map)
-                .bindPopup(`<b>${evento.nome}</b>`);
-        });
-    </script>
 </body>
 </html>
 
