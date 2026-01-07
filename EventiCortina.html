@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventi - Milano Cortina 2026</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #f7f8fa;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #003366;
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        color: white;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+        object-fit: contain;
+    }
+
+    .site-title {
+        font-weight: 700;
+        letter-spacing: .4px;
+    }
+
+    .nav-buttons a {
+        color: white;
+        text-decoration: none;
+        margin-left: 12px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background 0.2s;
+        display: inline-block;
+    }
+
+    .nav-buttons a:hover {
+        background-color: #0559a6;
+    }
+
+    main {
+        padding: 120px 20px 40px 20px;
+        text-align: center;
+        flex: 1;
+    }
+
+    h1 {
+        margin: 0 0 20px;
+        color: #111827;
+    }
+
+    /* Banner eventi */
+    .banner-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .banner {
+        width: 300px;
+        height: 200px;
+        background-color: #e2e8f0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s;
+        cursor: pointer;
+        text-align: center;
+        color: #003366;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .banner:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .banner img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+    }
+
+    .banner p {
+        margin: 8px 0 0 0;
+        font-size: 16px;
+    }
+
+    footer {
+        background-color: #003366;
+        color: white;
+        text-align: center;
+        padding: 14px 0;
+        margin-top: auto;
+        font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+        .banner { width: 45%; }
+    }
+
+    @media (max-width: 600px) {
+        .banner { width: 90%; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
+        <div class="site-title">Milano Cortina</div>
+    </div>
+    <div class="nav-buttons">
+        <a href="index.html">Home</a>
+        <a href="ospiti.html">Ospiti</a>
+        <a href="prenotazione.html">Prenotazione</a>
+    </div>
+</nav>
+
+<main>
+    <h1>Eventi di Milano Cortina 2026</h1>
+
+    <div class="banner-container">
+        <!-- Banner 1: Accensione della fiaccola -->
+        <div class="banner">
+            <img src="https://via.placeholder.com/300x120?text=Accensione+Fiaccola+Milano" alt="Accensione della fiaccola a Milano">
+            <p>Accensione della Fiaccola a Milano</p>
+        </div>
+
+        <!-- Banner 2: Sci a Bobbio -->
+        <div class="banner">
+            <img src="https://via.placeholder.com/300x120?text=Sci+Bobbio" alt="Sci a Bobbio">
+            <p>Sci a Bobbio</p>
+        </div>
+
+        <!-- Banner 3: Spegnimento della fiaccola -->
+        <div class="banner">
+            <img src="https://via.placeholder.com/300x120?text=Spegnimento+Fiaccola+Verona" alt="Spegnimento della fiaccola a Verona">
+            <p>Spegnimento della Fiaccola a Verona</p>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2026 Milano Cortina - Tutti i diritti riservati
+</footer>
+
+</body>
+</html>
