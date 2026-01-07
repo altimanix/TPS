@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Milano Cortina 2026</title>
 <style>
-    :root{
-        --accent:#003366;
-        --tooltip-bg: #003366;
-        --tooltip-color: #fff;
-    }
-
     body {
         font-family: Arial, Helvetica, sans-serif;
         margin: 0;
@@ -26,7 +20,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--accent);
+        background-color: #003366;
         padding: 10px 20px;
         position: fixed;
         width: 100%;
@@ -87,13 +81,13 @@
         margin-right: auto;
     }
 
-    /* Mappa statica: contenitore responsivo */
+    /* Mappa statica */
     .map-container {
         position: relative;
         display: inline-block;
         margin-top: 30px;
         max-width: 100%;
-        width: 900px; /* larghezza consigliata, si restringe su schermi piccoli */
+        width: 900px;
         box-sizing: border-box;
     }
 
@@ -101,83 +95,26 @@
         width: 100%;
         height: auto;
         display: block;
-        border: 3px solid var(--accent);
+        border: 3px solid #003366;
         border-radius: 10px;
         box-shadow: 0 6px 18px rgba(0,0,0,0.08);
         background-color: #eaeef2;
     }
 
-    /* Puntine */
+    /* Puntine fisse, senza interazione */
     .marker {
         position: absolute;
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         background-color: #ff4b4b;
         border-radius: 50%;
         transform: translate(-50%, -50%);
-        cursor: pointer;
         border: 2px solid #fff;
         box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* Make markers keyboard accessible: wrap in focusable element */
-    .marker:focus { outline: 3px solid rgba(0,85,170,0.25); }
-
-    /* Tooltip */
-    .marker .tooltip {
-        position: absolute;
-        left: 50%;
-        bottom: calc(100% + 10px);
-        transform: translateX(-50%);
-        background: var(--tooltip-bg);
-        color: var(--tooltip-color);
-        padding: 7px 10px;
-        border-radius: 6px;
-        font-size: 14px;
-        white-space: nowrap;
-        pointer-events: none;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity .15s ease, transform .15s ease;
-        transform-origin: center bottom;
-        z-index: 50;
-    }
-
-    /* Tooltip arrow */
-    .marker .tooltip::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        top: 100%;
-        transform: translateX(-50%);
-        border-width: 6px;
-        border-style: solid;
-        border-color: var(--tooltip-bg) transparent transparent transparent;
-    }
-
-    /* Show tooltip on hover or focus-within */
-    .marker:hover .tooltip,
-    .marker:focus .tooltip,
-    .marker:focus-within .tooltip {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(-50%) translateY(-4px);
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 980px) {
-        .map-container { width: 720px; }
-        .main-logo { width: 160px; }
-    }
-
-    @media (max-width: 760px) {
-        .map-container { width: 100%; padding: 0 10px; box-sizing: border-box; }
-        .nav-buttons a { padding: 6px 10px; margin-left: 8px; font-size: 14px; }
-        .main-logo { width: 140px; }
-    }
-
     footer {
-        background-color: var(--accent);
+        background-color: #003366;
         color: white;
         text-align: center;
         padding: 14px 0;
@@ -193,7 +130,7 @@
         <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
         <div class="site-title">Milano Cortina</div>
     </div>
-    <div class="nav-buttons" role="navigation" aria-label="Menu principale">
+    <div class="nav-buttons">
         <a href="eventi.html">Eventi</a>
         <a href="ospiti.html">Ospiti</a>
         <a href="prenotazione.html">Prenotazione</a>
@@ -205,50 +142,19 @@
     <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo Milano Cortina" class="main-logo">
     <p>Scopri dove si svolgono gli eventi sportivi in Italia.</p>
 
-    <!-- Mappa statica con 8 puntini posizionati in percentuale rispetto all'immagine -->
-    <div class="map-container" aria-label="Mappa eventi Milano Cortina">
+    <!-- Mappa statica con 8 puntini fissi -->
+    <div class="map-container">
         <img src="https://altimanix.github.io/TPS/Mappacortina.jpg" alt="Mappa Milano Cortina" class="map-img">
 
-        <!-- Nota: i valori top/left sono in percentuale e possono essere aggiustati per posizionare con precisione -->
-        <!-- 1 Milano -->
-        <div class="marker" style="top:72%; left:16%;" tabindex="0" aria-labelledby="evt-milano">
-            <div class="tooltip" id="evt-milano">Milano - Cerimonia di apertura</div>
-        </div>
-
-        <!-- 2 Torino -->
-        <div class="marker" style="top:62%; left:10%;" tabindex="0" aria-labelledby="evt-torino">
-            <div class="tooltip" id="evt-torino">Torino - Hockey su ghiaccio</div>
-        </div>
-
-        <!-- 3 Bormio -->
-        <div class="marker" style="top:28%; left:30%;" tabindex="0" aria-labelledby="evt-bormio">
-            <div class="tooltip" id="evt-bormio">Bormio - Sci di fondo</div>
-        </div>
-
-        <!-- 4 Merano -->
-        <div class="marker" style="top:36%; left:24%;" tabindex="0" aria-labelledby="evt-merano">
-            <div class="tooltip" id="evt-merano">Merano - Pattinaggio</div>
-        </div>
-
-        <!-- 5 Trento -->
-        <div class="marker" style="top:52%; left:40%;" tabindex="0" aria-labelledby="evt-trento">
-            <div class="tooltip" id="evt-trento">Trento - Biathlon</div>
-        </div>
-
-        <!-- 6 Bolzano -->
-        <div class="marker" style="top:38%; left:54%;" tabindex="0" aria-labelledby="evt-bolzano">
-            <div class="tooltip" id="evt-bolzano">Bolzano - Slittino</div>
-        </div>
-
-        <!-- 7 San Candido -->
-        <div class="marker" style="top:22%; left:78%;" tabindex="0" aria-labelledby="evt-sancandido">
-            <div class="tooltip" id="evt-sancandido">San Candido - Sci di fondo</div>
-        </div>
-
-        <!-- 8 Cortina -->
-        <div class="marker" style="top:30%; left:82%;" tabindex="0" aria-labelledby="evt-cortina">
-            <div class="tooltip" id="evt-cortina">Cortina - Sci alpino</div>
-        </div>
+        <!-- Puntini fissi (senza tooltip) -->
+        <div class="marker" style="top:72%; left:16%;"></div>
+        <div class="marker" style="top:62%; left:10%;"></div>
+        <div class="marker" style="top:28%; left:30%;"></div>
+        <div class="marker" style="top:36%; left:24%;"></div>
+        <div class="marker" style="top:52%; left:40%;"></div>
+        <div class="marker" style="top:38%; left:54%;"></div>
+        <div class="marker" style="top:22%; left:78%;"></div>
+        <div class="marker" style="top:30%; left:82%;"></div>
     </div>
 </main>
 
@@ -258,3 +164,4 @@
 
 </body>
 </html>
+
