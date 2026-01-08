@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prenotazione - Milano Cortina 2026</title>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: #f7f8fa;
+    }
+
+    /* Navbar */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #003366;
+        padding: 10px 20px;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        color: white;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+        object-fit: contain;
+    }
+
+    .site-title {
+        font-weight: 700;
+        letter-spacing: .4px;
+    }
+
+    .nav-buttons a {
+        color: white;
+        text-decoration: none;
+        margin-left: 12px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background 0.2s;
+    }
+
+    .nav-buttons a:hover {
+        background-color: #0559a6;
+    }
+
+    main {
+        padding: 120px 20px 40px;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .form-container {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        text-align: center;
+    }
+
+    .form-container h1 {
+        margin-bottom: 20px;
+        color: #003366;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    input, select {
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #003366;
+    }
+
+    button {
+        margin-top: 10px;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    button:hover {
+        background-color: #0559a6;
+    }
+
+    .success-message {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #0f5132;
+        background-color: #d1e7dd;
+        padding: 12px;
+        border-radius: 8px;
+        display: none;
+    }
+
+    footer {
+        background-color: #003366;
+        color: white;
+        text-align: center;
+        padding: 14px 0;
+        font-size: 14px;
+    }
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://altimanix.github.io/TPS/logo.png" alt="Logo" class="logo-img">
+        <div class="site-title">Milano Cortina</div>
+    </div>
+    <div class="nav-buttons">
+        <a href="HomeCortina.html">Home</a>
+        <a href="EventiCortina.html">Eventi</a>
+        <a href="OspitiCortina.html">Ospiti</a>
+    </div>
+</nav>
+
+<main>
+    <div class="form-container">
+        <h1>Prenota un Evento</h1>
+
+        <form id="bookingForm">
+            <input type="text" id="nome" placeholder="Nome" required>
+            <input type="text" id="cognome" placeholder="Cognome" required>
+            <input type="email" id="email" placeholder="Email" required>
+
+            <select id="evento" required>
+                <option value="">Seleziona evento</option>
+                <option>Accensione della Fiaccola</option>
+                <option>Sky Party</option>
+                <option>Festival di Chiusura</option>
+            </select>
+
+            <button type="submit">Prenota evento</button>
+        </form>
+
+        <div class="success-message" id="successMessage"></div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2026 Milano Cortina - Tutti i diritti riservati
+</footer>
+
+<script>
+    document.getElementById("bookingForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const nome = document.getElementById("nome").value;
+        const message = document.getElementById("successMessage");
+
+        message.textContent = `Complimenti ${nome}, la prenotazione è avvenuta con successo`;
+        message.style.display = "block";
+
+        this.reset();
+    });
+</script>
+
+</body>
+</html>
