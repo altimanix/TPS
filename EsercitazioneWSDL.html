@@ -49,7 +49,7 @@ pre {
 <body>
 
 <div class="box">
-<h2>Client SOAP (Simulazione)</h2>
+<h2>Convertitore metri-pollici e viceversa</h2>
 
 <input type="number" id="value" placeholder="Inserisci valore" step="any">
 
@@ -68,7 +68,7 @@ pre {
 <h3>SOAP Response</h3>
 <pre id="soapResponse"></pre>
 
-<h3>WSDL (dimostrativo)</h3>
+<h3>WSDL</h3>
 <pre>
 &lt;definitions name="ConversionService"&gt;
   &lt;operation name="metersToInches"/&gt;
@@ -88,7 +88,7 @@ function simulateSoap() {
         return;
     }
 
-    // SOAP REQUEST (simulata)
+
     let paramName = (op === "metersToInches") ? "meters" : "inches";
 
     let soapReq = `
@@ -101,12 +101,11 @@ function simulateSoap() {
   </soapenv:Body>
 </soapenv:Envelope>`;
 
-    // ELABORAZIONE (simulazione servizio)
+
     let resultValue = (op === "metersToInches")
         ? value / 0.0254
         : value * 0.0254;
 
-    // SOAP RESPONSE (simulata)
     let soapRes = `
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
   <soapenv:Body>
