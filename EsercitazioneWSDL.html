@@ -2,42 +2,46 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Client SOAP – Conversione</title>
+<title>Simulazione Servizio SOAP – Conversione</title>
 
 <style>
 body {
     font-family: Arial, sans-serif;
-    background: #eef2f7;
+    background: linear-gradient(120deg, #74b9ff, #a29bfe);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 .box {
     background: white;
     padding: 25px;
-    width: 380px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: 420px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-h2 {
-    text-align: center;
-}
+h2, h3 { text-align: center; }
 input, select, button {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
 }
 button {
-    background: #0984e3;
+    background: #6c5ce7;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
 }
 .result {
-    margin-top: 15px;
     font-weight: bold;
+    margin-top: 10px;
+}
+pre {
+    background: #f1f2f6;
+    padding: 10px;
+    font-size: 12px;
+    overflow-x: auto;
 }
 </style>
 </head>
@@ -45,7 +49,7 @@ button {
 <body>
 
 <div class="box">
-<h2>Client SOAP</h2>
+<h2>Client SOAP (Simulazione)</h2>
 
 <input type="number" id="value" placeholder="Inserisci valore" step="any">
 
@@ -54,52 +58,69 @@ button {
   <option value="inchesToMeters">Pollici → Metri</option>
 </select>
 
-<button onclick="callSoap()">Converti</button>
+<button onclick="simulateSoap()">Converti</button>
 
 <div class="result" id="result"></div>
+
+<h3>SOAP Request</h3>
+<pre id="soapRequest"></pre>
+
+<h3>SOAP Response</h3>
+<pre id="soapResponse"></pre>
+
+<h3>WSDL (dimostrativo)</h3>
+<pre>
+&lt;definitions name="ConversionService"&gt;
+  &lt;operation name="metersToInches"/&gt;
+  &lt;operation name="inchesToMeters"/&gt;
+&lt;/definitions&gt;
+</pre>
 </div>
 
 <script>
-function callSoap() {
+function simulateSoap() {
 
-    let value = document.getElementById("value").value;
+    let value = parseFloat(document.getElementById("value").value);
     let op = document.getElementById("operation").value;
 
-    if (value === "") {
-        document.getElementById("result").innerText = "Inserisci un valore";
+    if (isNaN(value)) {
+        document.getElementById("result").innerText = "Inserisci un numero valido";
         return;
     }
 
-    // Corpo SOAP
-    let soapMessage = `
-    <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-        xmlns:urn="urn:examples:conversionservice">
-      <soapenv:Body>
-        <urn:${op}>
-          <urn:${op === "metersToInches" ? "meters" : "inches"}>${value}</urn:${op === "metersToInches" ? "meters" : "inches"}>
-        </urn:${op}>
-      </soapenv:Body>
-    </soapenv:Envelope>`;
+    // SOAP REQUEST (simulata)
+    let paramName = (op === "metersToInches") ? "meters" : "inches";
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://altimanix.github.io/TPS/conversione.html", true);
+    let soapReq = `
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:urn="urn:examples:conversionservice">
+  <soapenv:Body>
+    <urn:${op}>
+      <urn:${paramName}>${value}</urn:${paramName}>
+    </urn:${op}>
+  </soapenv:Body>
+</soapenv:Envelope>`;
 
-    xhr.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
-    xhr.setRequestHeader("SOAPAction", op);
+    // ELABORAZIONE (simulazione servizio)
+    let resultValue = (op === "metersToInches")
+        ? value / 0.0254
+        : value * 0.0254;
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                document.getElementById("result").innerText =
-                    "Risultato ricevuto dal servizio SOAP";
-            } else {
-                document.getElementById("result").innerText =
-                    "Errore nella chiamata SOAP";
-            }
-        }
-    };
+    // SOAP RESPONSE (simulata)
+    let soapRes = `
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+  <soapenv:Body>
+    <${op}Response>
+      <result>${resultValue.toFixed(4)}</result>
+    </${op}Response>
+  </soapenv:Body>
+</soapenv:Envelope>`;
 
-    xhr.send(soapMessage);
+    document.getElementById("result").innerText =
+        "Risultato: " + resultValue.toFixed(4);
+
+    document.getElementById("soapRequest").innerText = soapReq.trim();
+    document.getElementById("soapResponse").innerText = soapRes.trim();
 }
 </script>
 
