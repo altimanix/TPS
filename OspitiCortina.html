@@ -72,22 +72,25 @@
     }
 
     /* Container ospiti */
-    .banner-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 24px;
-    }
+  .banner-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-    .banner {
-        width: 320px;
-        background-color: #ffffff;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 6px 14px rgba(0,0,0,0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        text-align: left;
-    }
+
+   .banner {
+    width: 100%; /* importantissimo */
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+}
+
 
     .banner:hover {
         transform: translateY(-6px);
