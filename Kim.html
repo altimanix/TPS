@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dietro il confine — Kim Jong‑un</title>
+<title>Dietro il confine — Kim Jong-un</title>
 
 <style>
 :root{
@@ -12,29 +12,33 @@
 --card:#0f172a;
 --text:#e5e7eb;
 --muted:#9ca3af;
---accent:#22d3ee;
 }
-
-*{box-sizing:border-box}
 
 body{
 margin:0;
 font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
 background:linear-gradient(180deg,#020617,#0b1220);
 color:var(--text);
-line-height:1.6;
 }
 
-/* HEADER */
 .topbar{
 background:var(--green);
 color:white;
 padding:18px 24px;
 font-weight:700;
 font-size:20px;
-position:sticky;
-top:0;
-z-index:100;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.homeBtn{
+background:white;
+color:black;
+padding:6px 12px;
+border-radius:6px;
+text-decoration:none;
+font-size:14px;
 }
 
 main{
@@ -45,65 +49,16 @@ padding:20px;
 
 section{
 background:rgba(255,255,255,0.03);
-padding:22px;
+padding:24px;
 border-radius:12px;
-margin-bottom:26px;
+margin-bottom:28px;
 }
 
-h2{
-margin-top:0;
-margin-bottom:10px;
-}
-
-p{color:var(--muted)}
-
-/* VIDEO */
-.hero{
-display:flex;
-justify-content:center;
-min-height:50vh;
-align-items:center;
-}
-
-.video-box{
-width:100%;
-max-width:850px;
-background:black;
-border-radius:12px;
-overflow:hidden;
-}
-
-video{width:100%}
-
-.controls{
-display:flex;
-gap:10px;
-padding:10px;
-background:#000;
-}
-
-.controls input{
-flex:1;
-padding:8px;
-border-radius:6px;
-border:none;
-}
-
-.controls button{
-background:var(--accent);
-border:none;
-padding:8px 14px;
-border-radius:6px;
-font-weight:600;
-}
-
-/* FAMILY TREE CLEAN LAYOUT */
 .tree{
 display:flex;
 flex-direction:column;
 align-items:center;
 gap:40px;
-margin-top:20px;
 }
 
 .generation{
@@ -120,24 +75,11 @@ border-radius:10px;
 border:1px solid rgba(255,255,255,0.05);
 text-align:center;
 min-width:160px;
-box-shadow:0 6px 14px rgba(0,0,0,0.4);
 }
 
-.node small{
-color:var(--muted);
-display:block;
-margin-top:6px;
-}
+.node small{color:var(--muted);display:block;margin-top:6px}
 
-/* LISTS */
-ul{padding-left:18px}
-li{margin-bottom:10px}
-
-footer{
-text-align:center;
-color:var(--muted);
-padding:30px 10px;
-}
+video{width:100%;border-radius:8px}
 
 </style>
 </head>
@@ -145,173 +87,88 @@ padding:30px 10px;
 <body>
 
 <header class="topbar">
-dietro il confine: kim jong‑un
+<span>dietro il confine: kim jong-un</span>
+<a class="homeBtn" href="index.html">Home</a>
 </header>
 
 <main>
 
-<!-- VIDEO -->
-<section class="hero">
-<div class="video-box">
+<section>
 
-<div id="videoContainer" style="padding:40px;text-align:center;color:#aaa">
-inserisci il link del video github (.mp4)
-</div>
+<!--
+INSERISCI QUI IL LINK AL VIDEO DEL PODCAST
+Esempio:
+<source src="https://tuo-link-video.mp4" type="video/mp4">
+-->
 
-<div class="controls">
-<input id="videoUrl" placeholder="incolla link github raw mp4">
-<button onclick="loadVideo()">carica video</button>
-</div>
+<video controls>
+<source src="INSERISCI_LINK_VIDEO_QUI.mp4" type="video/mp4">
+Il tuo browser non supporta il video.
+</video>
 
-</div>
 </section>
 
-
-<!-- FAMILY TREE -->
 <section>
 <h2>Albero genealogico della dinastia Kim</h2>
-<p>Schema semplificato della famiglia che governa la Corea del Nord da tre generazioni.</p>
 
 <div class="tree">
 
 <div class="generation">
-<div class="node">
-Kim Il‑sung
-<small>Fondatore della Corea del Nord</small>
-</div>
+<div class="node">Kim Il-sung<small>Fondatore</small></div>
 </div>
 
 <div class="generation">
-<div class="node">
-Kim Jong‑il
-<small>Leader 1994‑2011</small>
-</div>
+<div class="node">Kim Jong-il<small>Leader 1994-2011</small></div>
 </div>
 
 <div class="generation">
-<div class="node">Kim Jong‑un<small>Leader dal 2011</small></div>
-<div class="node">Kim Jong‑chul<small>Fratello</small></div>
-<div class="node">Kim Jong‑nam<small>Mezzo fratello (morto 2017)</small></div>
-<div class="node">Kim Yo‑jong<small>Sorella e politica</small></div>
+<div class="node">Kim Jong-un</div>
+<div class="node">Kim Yo-jong</div>
+<div class="node">Kim Jong-chul</div>
+<div class="node">Kim Jong-nam</div>
 </div>
 
 <div class="generation">
-<div class="node">Ri Sol‑ju<small>Moglie</small></div>
-<div class="node">Kim Ju‑ae<small>Figlia (possibile erede)</small></div>
-<div class="node">Figlio maggiore<small>Nome non pubblico</small></div>
-<div class="node">Terzo figlio<small>Informazioni sconosciute</small></div>
+<div class="node">Ri Sol-ju<small>Moglie</small></div>
+<div class="node">Kim Ju-ae<small>Figlia</small></div>
+<div class="node">Figlio maggiore</div>
+<div class="node">Terzo figlio</div>
 </div>
 
 </div>
-
 </section>
 
-
-<!-- BIO -->
 <section>
-<h2>Chi è Kim Jong‑un</h2>
-
+<h2>Chi è Kim Jong-un</h2>
 <p>
-Kim Jong‑un è il leader della Corea del Nord dal 2011, quando successe al padre Kim Jong‑il.
-È il terzo membro della dinastia Kim a governare il paese.
+Kim Jong-un guida la Corea del Nord dal 2011 ed è il terzo leader
+ della dinastia Kim.
 </p>
-
-<p>
-Durante il suo governo ha rafforzato il controllo interno del regime e accelerato lo sviluppo
- del programma nucleare e missilistico.
-</p>
-
-<p>
-Il suo potere si basa su propaganda, controllo politico e culto della personalità della
-famiglia Kim.
-</p>
-
 </section>
 
-
-<!-- RELAZIONI -->
 <section>
-<h2>Relazioni con altri paesi</h2>
-
+<h2>Leggi che idolatrano il leader</h2>
 <ul>
-<li><b>Cina</b> — principale partner economico e diplomatico.</li>
-<li><b>Russia</b> — cooperazione militare e strategica crescente.</li>
-<li><b>Corea del Sud</b> — relazioni variabili tra dialogo e tensione.</li>
-<li><b>Stati Uniti</b> — forte conflitto politico legato al programma nucleare.</li>
+<li>I Dieci Principi ideologici impongono fedeltà assoluta al leader.</li>
+<li>Ritratti obbligatori dei leader nelle case.</li>
+<li>Sessioni di autocritica ideologica.</li>
+<li>Criticare la famiglia Kim è un crimine politico.</li>
 </ul>
-
 </section>
 
-
-<!-- CULT OF LEADER -->
 <section>
-<h2>Leggi e principi che idolatrano il leader</h2>
-
+<h2>Leggi particolari della Corea del Nord</h2>
 <ul>
-<li><b>I Dieci Principi Ideologici</b> impongono fedeltà assoluta alla famiglia Kim.</li>
-
-<li><b>Ritratti obbligatori dei leader</b>: nelle case devono essere esposti e mantenuti puliti.</li>
-
-<li><b>Sessioni di autocritica</b>: riunioni dove i cittadini confessano errori ideologici.</li>
-
-<li><b>Educazione ideologica</b>: la vita dei leader è insegnata nelle scuole fin da piccoli.</li>
-
-<li><b>Divieto di criticare il leader</b>: criticare la famiglia Kim è un crimine politico grave.</li>
-
+<li>Divieto di film e musica straniera.</li>
+<li>Internet limitato.</li>
+<li>Media controllati dallo stato.</li>
+<li>Sorveglianza della popolazione.</li>
 </ul>
-
 </section>
-
-
-<!-- UNIQUE LAWS -->
-<section>
-<h2>Leggi e caratteristiche che rendono la Corea del Nord diversa</h2>
-
-<ul>
-<li><b>Legge contro la cultura straniera (2020)</b>: vieta film, musica e serie TV provenienti dall'estero.</li>
-
-<li><b>Legge sulla lingua di Pyongyang (2023)</b>: proibisce parole e slang sudcoreani.</li>
-
-<li><b>Internet limitato</b>: i cittadini hanno accesso solo a una rete interna controllata.</li>
-
-<li><b>Media controllati</b>: radio e televisori sono impostati per ricevere solo canali statali.</li>
-
-<li><b>Sorveglianza statale</b>: il governo monitora comunicazioni e attività della popolazione.</li>
-
-</ul>
-
-</section>
-
-
-<!-- FUN FACT -->
-<section>
-<h2>Curiosità sulla Corea del Nord</h2>
-
-<ul>
-<li>Molti cittadini non hanno mai usato Internet globale.</li>
-<li>I ritratti dei leader sono obbligatori nelle case.</li>
-<li>La figlia di Kim Jong‑un è apparsa pubblicamente durante test missilistici.</li>
-<li>Le scuole insegnano la storia della famiglia Kim come materia centrale.</li>
-<li>Molte informazioni sulla famiglia del leader sono segrete.</li>
-</ul>
-
-</section>
-
-<footer>
-Podcast "Dietro il confine" — pagina informativa su Kim Jong‑un
-</footer>
 
 </main>
 
-<script>
-function loadVideo(){
-const url=document.getElementById('videoUrl').value
-if(!url)return
-const container=document.getElementById('videoContainer')
-container.innerHTML=`<video controls><source src="${url}" type="video/mp4"></video>`
-}
-</script>
-
 </body>
 </html>
+
 
