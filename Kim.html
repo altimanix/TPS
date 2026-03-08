@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dietro il confine — Kim Jong‑un</title>
+
+<style>
+:root{
+--green:#16a34a;
+--bg:#0b1220;
+--card:#111827;
+--text:#e5e7eb;
+--muted:#9ca3af;
+--accent:#22d3ee;
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:linear-gradient(180deg,#020617,#0b1220);
+color:var(--text);
+line-height:1.6;
+}
+
+/* TOP BAR */
+.topbar{
+background:var(--green);
+color:white;
+padding:18px 24px;
+font-weight:700;
+font-size:20px;
+position:sticky;
+top:0;
+z-index:100;
+box-shadow:0 4px 12px rgba(0,0,0,0.4);
+}
+
+main{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+section{
+background:rgba(255,255,255,0.03);
+padding:20px;
+border-radius:12px;
+margin-bottom:22px;
+}
+
+h2{
+margin-top:0;
+}
+
+p{color:var(--muted)}
+
+/* VIDEO */
+.hero{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:60vh;
+}
+
+.video-box{
+width:100%;
+max-width:900px;
+background:black;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+video{
+width:100%;
+display:block;
+}
+
+.controls{
+display:flex;
+gap:10px;
+padding:10px;
+background:#000;
+}
+
+.controls input{
+flex:1;
+padding:8px;
+border-radius:6px;
+border:none;
+}
+
+.controls button{
+background:var(--accent);
+border:none;
+padding:8px 14px;
+border-radius:6px;
+font-weight:600;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+}
+
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}
+}
+
+/* FAMILY TREE */
+.tree ul{
+padding-top:20px;
+position:relative;
+}
+
+.tree li{
+float:left;
+text-align:center;
+list-style:none;
+padding:20px 10px 0 10px;
+position:relative;
+}
+
+.tree li::before,.tree li::after{
+content:'';
+position:absolute;
+top:0;
+right:50%;
+border-top:2px solid rgba(255,255,255,0.1);
+width:50%;
+height:20px;
+}
+
+.tree li::after{
+right:auto;
+left:50%;
+border-left:2px solid rgba(255,255,255,0.1);
+}
+
+.tree li:only-child::before,.tree li:only-child::after{display:none}
+
+.node{
+background:var(--card);
+padding:10px 14px;
+border-radius:8px;
+border:1px solid rgba(255,255,255,0.05);
+min-width:150px;
+}
+
+.node small{
+color:var(--muted);
+display:block;
+margin-top:6px;
+}
+
+/* LIST STYLE */
+ul li{margin-bottom:10px}
+
+/* FOOTER */
+footer{
+text-align:center;
+color:var(--muted);
+padding:30px 10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+dietro il confine: kim jong‑un
+</header>
+
+<main>
+
+<!-- VIDEO SECTION -->
+<section class="hero">
+
+<div class="video-box">
+
+<div id="videoContainer">
+<div style="padding:40px;text-align:center;color:#aaa">Inserisci il link del video GitHub (.mp4)</div>
+</div>
+
+<div class="controls">
+<input id="videoUrl" placeholder="incolla link github raw mp4">
+<button onclick="loadVideo()">carica video</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FAMILY TREE -->
+<section>
+<h2>Albero genealogico della dinastia Kim</h2>
+
+<div class="tree">
+<ul>
+<li>
+<div class="node">Kim Il‑sung<small>Fondatore dello stato</small></div>
+
+<ul>
+<li>
+<div class="node">Kim Jong‑il<small>Leader 1994‑2011</small></div>
+
+<ul>
+
+<li>
+<div class="node">Kim Jong‑un<small>Leader dal 2011</small></div>
+
+<ul>
+<li><div class="node">Ri Sol‑ju<small>Moglie</small></div></li>
+<li><div class="node">Kim Ju‑ae<small>Figlia (possibile erede)</small></div></li>
+<li><div class="node">Figlio maggiore<small>Nome segreto</small></div></li>
+<li><div class="node">Terzo figlio<small>Dati sconosciuti</small></div></li>
+</ul>
+
+</li>
+
+<li>
+<div class="node">Kim Jong‑chul<small>Fratello</small></div>
+</li>
+
+<li>
+<div class="node">Kim Jong‑nam<small>Mezzo fratello (morto 2017)</small></div>
+</li>
+
+<li>
+<div class="node">Kim Yo‑jong<small>Sorella e politica</small></div>
+</li>
+
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+</div>
+</section>
+
+
+<!-- BIOGRAPHY -->
+<div class="grid">
+
+<section>
+<h2>Chi è Kim Jong‑un</h2>
+
+<p>
+Kim Jong‑un è il leader della Corea del Nord dal 2011, anno della morte del padre Kim Jong‑il. È il terzo membro della dinastia Kim a governare il paese.
+</p>
+
+<p>
+Durante il suo governo ha rafforzato il controllo interno del regime e ha accelerato lo sviluppo di armi nucleari e missili balistici.
+</p>
+
+<p>
+Il suo potere si basa su una combinazione di controllo politico, propaganda e culto della personalità della famiglia Kim.
+</p>
+
+</section>
+
+
+<section>
+<h2>Relazioni internazionali</h2>
+
+<ul>
+<li><b>Cina</b> — principale partner economico e politico.</li>
+<li><b>Russia</b> — cooperazione militare e diplomatica crescente.</li>
+<li><b>Corea del Sud</b> — relazioni variabili tra dialogo e tensione.</li>
+<li><b>Stati Uniti</b> — conflitto politico legato al programma nucleare.</li>
+</ul>
+
+</section>
+
+</div>
+
+
+<!-- CULT OF LEADER -->
+<section>
+<h2>Leggi e principi che idolatrano il leader</h2>
+
+<ul>
+<li>
+<b>I Dieci Principi Ideologici</b><br>
+Sistema di regole che impone fedeltà assoluta alla famiglia Kim.
+</li>
+
+<li>
+<b>Ritratti obbligatori dei leader</b><br>
+Le case devono esporre i ritratti dei leader e mantenerli puliti.
+</li>
+
+<li>
+<b>Sessioni di autocritica</b><br>
+I cittadini partecipano a riunioni dove devono confessare errori ideologici.
+</li>
+
+<li>
+<b>Educazione ideologica</b><br>
+Nelle scuole si studia la vita dei leader fin dall'infanzia.
+</li>
+
+<li>
+<b>Divieto di criticare il leader</b><br>
+Criticare la famiglia Kim è considerato un grave crimine politico.
+</li>
+
+</ul>
+
+</section>
+
+
+<!-- UNIQUE LAWS -->
+<section>
+<h2>Leggi e caratteristiche che rendono la Corea del Nord diversa</h2>
+
+<ul>
+
+<li>
+<b>Legge contro la cultura straniera (2020)</b><br>
+Vieta film, musica o serie TV provenienti dall'estero.
+</li>
+
+<li>
+<b>Protezione della lingua di Pyongyang (2023)</b><br>
+È vietato usare parole o slang sudcoreani.
+</li>
+
+<li>
+<b>Internet limitato</b><br>
+I cittadini non hanno accesso al vero Internet ma solo a una rete interna.
+</li>
+
+<li>
+<b>Media controllati</b><br>
+Radio e televisori sono impostati per ricevere solo canali statali.
+</li>
+
+<li>
+<b>Sorveglianza statale</b><br>
+Il governo controlla comunicazioni, spostamenti e attività della popolazione.
+</li>
+
+</ul>
+
+</section>
+
+
+<!-- FUN FACT -->
+<section>
+<h2>Curiosità sulla Corea del Nord</h2>
+
+<ul>
+<li>Molti cittadini non hanno mai usato Internet globale.</li>
+<li>Le scuole insegnano la storia della famiglia Kim come materia centrale.</li>
+<li>I ritratti dei leader devono essere esposti nelle case.</li>
+<li>La figlia di Kim Jong‑un è apparsa pubblicamente durante test missilistici.</li>
+<li>Molte informazioni sulla famiglia del leader sono segrete.</li>
+</ul>
+
+</section>
+
+
+<footer>
+Podcast "Dietro il confine" — pagina informativa su Kim Jong‑un
+</footer>
+
+</main>
+
+<script>
+function loadVideo(){
+
+const url=document.getElementById('videoUrl').value
+
+if(!url)return
+
+const container=document.getElementById('videoContainer')
+
+container.innerHTML=`
+<video controls>
+<source src="${url}" type="video/mp4">
+</video>`
+
+}
+</script>
+
+</body>
+</html>
