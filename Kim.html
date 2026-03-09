@@ -24,12 +24,25 @@ color:var(--text);
 .topbar{
 background:var(--green);
 color:white;
-padding:18px 24px;
+padding:14px 24px;
 font-weight:700;
 font-size:20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+}
+
+.leftTop{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+height:40px;
+width:40px;
+object-fit:cover;
+border-radius:6px;
 }
 
 .homeBtn{
@@ -79,7 +92,7 @@ min-width:160px;
 
 .node small{color:var(--muted);display:block;margin-top:6px}
 
-video{width:100%;border-radius:8px}
+iframe{width:100%;border-radius:8px}
 
 </style>
 </head>
@@ -87,8 +100,18 @@ video{width:100%;border-radius:8px}
 <body>
 
 <header class="topbar">
+
+<div class="leftTop brand">
+
+<!-- LOGO PODCAST -->
+<img class="logo" src="https://altimanix.github.io/TPS/Logo.html" alt="Logo podcast">
+
 <span>Dietro il confine: Kim Jong-Un</span>
-<a class="homeBtn" href="https://altimanix.github.io/TPS/HomePodcast.html">Home</a>
+
+</div>
+
+<a class="homeBtn" href="index.html">Home</a>
+
 </header>
 
 <main>
@@ -221,5 +244,6 @@ Questo serve a impedire che la popolazione ascolti notizie straniere.</li>
 
 </body>
 </html>
+
 
 
