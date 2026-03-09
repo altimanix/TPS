@@ -23,9 +23,19 @@ color:var(--text);
 
 .topbar{
 background:var(--green);
-padding:18px 24px;
+padding:14px 24px;
 font-weight:700;
 font-size:20px;
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+height:40px;
+width:40px;
+object-fit:cover;
+border-radius:6px;
 }
 
 main{
@@ -45,7 +55,6 @@ h1,h2{margin-top:0}
 
 p{color:var(--muted)}
 
-/* HOST GRID */
 .hosts{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -73,7 +82,6 @@ border:3px solid #1f2937;
 
 .host p{font-size:14px}
 
-/* EPISODES */
 .episodes{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -108,6 +116,7 @@ color:var(--muted);
 </head>
 
 <body>
+<img class="logo" src="https://altimanix.github.io/TPS/Logo.jpeg" alt="Logo podcast">
 
 <header class="topbar">
 Dietro il Confine — Podcast
